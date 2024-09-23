@@ -1,0 +1,14 @@
+{% extends 'quotes/base.html' %}
+
+<!--Random quote and image page-->
+{% block content %}
+    <div class="quote-container">
+        <!-- Display the random quote -->
+        <h2>{{ quote }}</h2>
+
+        <!-- Display the random image -->
+        <div class="image-container">
+            <img src="{{ image }}" alt="Albert Einstein" class="quote-image">
+        </div>
+    </div>
+{% endblock %}

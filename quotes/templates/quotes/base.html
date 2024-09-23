@@ -1,0 +1,27 @@
+<!--Base Page with header and navigation-->
+{% load static %}
+<html>
+    <head>
+        <title>Albert Einstein Quote of the Day</title>
+        <link rel="stylesheet" href="{% static 'styles.css' %}">
+    </head>
+    <body>
+
+    <!--Navigation-->
+    <nav>
+        <!--Header-->
+        <header>
+            <h1>Albert Einstein Quote of the Day</h1>
+        </header>
+        <ul>
+            <a href="{% url 'quote' %}">Quote of the Day</a>
+            <a href="{% url 'show_all' %}">Show-All</a>
+            <a href="{% url 'about' %}">About</a>
+        </ul>
+    </nav>
+
+    {% block content %}
+    <!-- put the interesting (specific stuff) here -->
+    {% endblock %}
+    </body>
+</html>

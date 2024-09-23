@@ -1,0 +1,28 @@
+{% extends 'quotes/base.html' %}
+
+<!--Show all images and quotes page-->
+{% block content %}
+    <h2>All Quotes by Albert Einstein</h2>
+
+    <div class="quotes-list">
+        <!-- Loop through the list of quotes and display each one -->
+        <h2>Quotes:</h2>
+        <ul>
+            {% for quote in quotes %}
+                <li>"{{ quote }}"</li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <div class="images-list">
+        <!-- Loop through the list of images and display each one -->
+        <h2>Images:</h2>
+        <div class="images-grid">
+            {% for image in images %}
+                <div class="image-item">
+                    <img src="{{ image }}" alt="Albert Einstein Image" class="show-all-image">
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
