@@ -1,0 +1,72 @@
+{% extends 'restaurant/base.html' %}
+{% load static %}
+
+{% block content %}
+    <h1>Order Your Meal at Mo's Cravings</h1>
+    
+    <form action="{% url 'confirmation' %}" method="POST">
+        {% csrf_token %}
+
+        <h2>Menu</h2>
+
+        <label>
+            <input type="checkbox" name="items" value="Chicken/Lamb_over_rice"> Chicken/Lamb Over Rice ($10)
+        </label><br>
+
+        <label>
+            <input type="checkbox" name="items" value="Chicken_Curry"> Beef Curry ($12)
+        </label><br>
+
+        <label>
+            <input type="checkbox" name="items" value="Kachi_Byriani"> Kachi Biryani ($10)
+        </label><br>
+
+        <label>
+            <input type="checkbox" name="items" value="Sushi"> Sushi (Salmon Roll) ($15)
+        </label><br>
+
+        <h2>Daily Special:</h2>
+        <label>
+            <input type="checkbox" name="items" value="{{ daily_special_name }}"> {{ daily_special_name }} (${{ daily_special_price }})
+        </label><br>
+
+        <h3>Extras (for Sushi)</h3>
+
+        <!-- Type of Sushi -->
+        <label for="sushi_type">Type of Sushi:</label>
+        <select name="sushi_type" id="sushi_type">
+            <option value="Salmon">Salmon</option>
+            <option value="Tuna">Tuna</option>
+            <option value="Eel">Eel</option>
+            <option value="Vegetarian">Vegetarian</option>
+        </select><br><br>
+
+        <!-- Roll Option -->
+        <label>
+            <input type="checkbox" name="extras" value="Roll"> Make it a roll ($3)
+        </label><br>
+
+        <!-- Extras for Sushi -->
+        <label>
+            <input type="checkbox" name="extras" value="Extra_Soy_Sauce"> Extra Soy Sauce ($1)
+        </label><br>
+        <label>
+            <input type="checkbox" name="extras" value="Wasabi"> Wasabi ($1)
+        </label><br>
+
+        <h3>Special Instructions</h3>
+        <textarea name="special_instructions" rows="4" cols="50" placeholder="Any special requests?"></textarea><br><br>
+
+        <h2>Customer Information</h2>
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required><br><br>
+
+        <label for="phone">Phone:</label>
+        <input type="tel" id="phone" name="phone" required><br><br>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required><br><br>
+
+        <input type="submit" value="Place Order">
+    </form>
+{% endblock %}

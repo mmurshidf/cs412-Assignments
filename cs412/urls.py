@@ -24,6 +24,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path("hw/", include("hw.urls")), ## we create the URL hw/, 
     path("quotes/", include("quotes.urls")), ## quotes URL
+    path("restaurant/", include("restaurant.urls")),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

@@ -1,0 +1,20 @@
+{% extends 'restaurant/base.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="restaurant-container">
+        <section>
+            <img src="{% static 'kachi.jpg' %}" alt="Mo's Cravings Restaurant" class="restaurant-image">
+            <p>At Mo's Cravings, we serve a variety of food that Mohammed loves to eat and you will too! Order Now!</p>
+        </section>
+        <h2>Location:</h2>
+        <p>635 Commonwealth Ave, Boston, MA 02215</p>
+
+        <h2>Hours of Operation:</h2>
+        <table>
+            <tr><td>Monday - Friday:</td><td>10 AM - 10 PM</td></tr>
+            <tr><td>Saturday:</td><td>11 AM - 11 PM</td></tr>
+            <tr><td>Sunday:</td><td>Closed</td></tr>
+        </table>
+    </div>
+{% endblock %}

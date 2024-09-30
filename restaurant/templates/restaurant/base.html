@@ -1,0 +1,27 @@
+<!--Base Page with header and navigation-->
+{% load static %}
+<html>
+    <head>
+        <title>Mo's Cravings</title>
+        <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+    </head>
+    <body>
+
+    <!--Navigation-->
+    <nav>
+        <!--Header-->
+        <header>
+            <h1>Welcome to Mo's Cravings!</h1>
+            <p>Delicious food, Loved by Mohammed</p>
+        </header>
+        <ul>
+            <a href="{% url 'main' %}">Main Page</a>
+            <a href="{% url 'order' %}">Order</a>
+        </ul>
+    </nav>
+
+    {% block content %}
+    <!-- put the interesting (specific stuff) here -->
+    {% endblock %}
+    </body>
+</html>
