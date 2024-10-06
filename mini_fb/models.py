@@ -1,3 +1,7 @@
+# File: models.py
+# Author: Mohammed Murshid (murshidm@bu.edu), 10/6/2024
+# Description: Models file to structure profile info
+
 from django.db import models
 
 # Create your models here.
