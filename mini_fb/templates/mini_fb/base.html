@@ -1,27 +1,24 @@
 <!--Base Page with header and navigation-->
 {% load static %}
-<html>
-    <head>
-        <title>Albert Einstein Quote of the Day</title>
-        <link rel="stylesheet" href="{% static 'styles.css' %}">
-    </head>
-    <body>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}My Mini Facebook{% endblock %}</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'style1.css' %}">
+</head>
+<body>
+    <header>
+        <h1>MiniFacebook</h1>
+    </header>
 
-    <!--Navigation-->
-    <nav>
-        <!--Header-->
-        <header>
-            <h1>Albert Einstein Quote of the Day</h1>
-        </header>
-        <ul>
-            <a href="{% url 'quote' %}">Quote of the Day</a>
-            <a href="{% url 'show_all' %}">Show-All</a>
-            <a href="{% url 'about' %}">About</a>
-        </ul>
-    </nav>
+    <main>
+        {% block content %}
+        <!-- Page-specific content will go here -->
+        {% endblock %}
+    </main>
 
-    {% block content %}
-    <!-- put the interesting (specific stuff) here -->
-    {% endblock %}
-    </body>
+    <footer>
+        <p>© 2024 MiniFacebook</p>
+    </footer>
+</body>
 </html>

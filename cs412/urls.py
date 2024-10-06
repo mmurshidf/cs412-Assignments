@@ -18,6 +18,7 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
+from django.contrib import admin
 
 
 urlpatterns = [
@@ -25,7 +26,8 @@ urlpatterns = [
     path("hw/", include("hw.urls")), ## we create the URL hw/, 
     path("quotes/", include("quotes.urls")), ## quotes URL
     path("restaurant/", include("restaurant.urls")), ## restaurant URL
-    path("mini_fb/", include("mini_fb.urls")), ## mini_fb URL
+    path('admin/', admin.site.urls),
+    path('mini_fb/', include('mini_fb.urls')),  # Routes to mini_fb app
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
