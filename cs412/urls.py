@@ -24,7 +24,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path("hw/", include("hw.urls")), ## we create the URL hw/, 
     path("quotes/", include("quotes.urls")), ## quotes URL
-    path("restaurant/", include("restaurant.urls")),
+    path("restaurant/", include("restaurant.urls")), ## restaurant URL
+    path("mini_fb/", include("mini_fb.urls")), ## mini_fb URL
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
