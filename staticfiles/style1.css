@@ -16,16 +16,17 @@ body {
     min-height: 100vh;
 }
 
-/* Header Styling */
+/* Header Styling (Navigation Bar) */
 header {
     background-color: #8b4513; /* Dark brown */
     color: white;
-    padding: 15px;
+    padding: 10px; /* Smaller padding */
     text-align: center;
-    font-size: 2.5rem;
+    font-size: 2rem; /* Smaller font size */
     font-weight: bold;
     letter-spacing: 1px;
     width: 100%;
+    position: relative; /* Remove fixed position */
 }
 
 /* All Profiles Button */
@@ -49,6 +50,37 @@ header {
     transform: scale(1.05); /* Slight scale effect on hover */
 }
 
+/* Create Profile Button Styling */
+.create-profile-btn {
+    background-color: #4b0082;
+    color: white;
+    padding: 5px 12px;
+    font-size: 0.9rem;
+    border-radius: 20px;
+    text-decoration: none;
+    border: 2px solid #8b4513;
+    margin-left: 10px;
+}
+
+.create-profile-btn:hover {
+    background-color: #6b3410;
+}
+
+.create-status-btn {
+    background-color: #4b0082;
+    color: white;
+    padding: 10px 15px;
+    text-decoration: none;
+    border-radius: 5px;
+    display: inline-block;
+    margin-top: 15px;
+}
+
+.create-status-btn:hover {
+    background-color: #6b3410;
+    color: #faf0e6;
+}
+
 /* Main Content Styling */
 main {
     padding: 20px;
@@ -67,7 +99,7 @@ main {
     margin: 20px 0;
     background-color: #f4f4f4;
     table-layout: fixed;
-    font-family: 'Arial', sans-serif; /* Changed font */
+    font-family: 'Arial', sans-serif;
 }
 
 .profile-table, .profile-table th, .profile-table td {
@@ -79,23 +111,21 @@ main {
     text-align: left;
 }
 
-/* Table Header Styling */
 .profile-table th {
-    background-color: #6b3410; /* Darker brown */
-    color: #f5f5dc; /* Beige text */
+    background-color: #6b3410;
+    color: #f5f5dc;
     text-transform: uppercase;
     font-size: 1.3rem;
-    font-family: 'Verdana', sans-serif; /* Sleek font for headers */
+    font-family: 'Verdana', sans-serif;
     letter-spacing: 1px;
 }
 
-/* Table Row Text Styling */
 .profile-table td {
-    background-color: #faf0e6; /* Light beige */
+    background-color: #faf0e6;
     text-align: center;
     font-size: 1.1rem;
-    color: #4b0082; /* Dark purple */
-    font-family: 'Arial', sans-serif; /* More modern font for body */
+    color: #4b0082;
+    font-family: 'Arial', sans-serif;
 }
 
 .profile-image {
@@ -123,8 +153,8 @@ main {
 }
 
 .profile-details ul {
-    list-style-type: none;
-    padding: 0;
+    list-style-type: none; /* Removes bullet points */
+    padding-left: 0; /* Removes default padding */
 }
 
 .profile-details li {
@@ -138,12 +168,85 @@ main {
     color: #8b4513;
 }
 
+/* Status Messages Styling */
+ul {
+    list-style-type: none; /* Removes bullet points from status messages */
+    padding-left: 0;
+}
+
+li {
+    margin-bottom: 10px; /* Adds space between items */
+}
+
 /* Footer Styling */
 footer {
     background-color: #8b4513;
     color: white;
-    padding: 15px;
+    padding: 10px; /* Smaller padding */
     text-align: center;
+    font-size: 0.9rem; /* Smaller font size */
     width: 100%;
     margin-top: 20px;
+    position: relative; /* Remove fixed position */
+}
+
+/* Create Profile Form Styling */
+form {
+    background-color: #faf0e6; /* Light beige form background */
+    padding: 20px;
+    border-radius: 10px;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+h1 {
+    font-size: 2.5rem;
+    color: #4b0082;
+}
+
+p {
+    font-size: 1.2rem;
+    color: #4b0082;
+}
+
+label {
+    font-weight: bold;
+    color: #8b4513;
+}
+
+input[type="text"], input[type="email"], input[type="url"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #8b4513;
+    border-radius: 5px;
+}
+
+button {
+    background-color: #8b4513;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+button:hover {
+    background-color: #6b3410;
+}
+
+a {
+    display: inline-block;
+    margin-top: 10px;
+    text-decoration: none;
+    color: #8b4513;
+    border: 1px solid #8b4513;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+a:hover {
+    background-color: #8b4513;
+    color: white;
 }

@@ -8,7 +8,7 @@
     <div class="profile-container">
         <h2>{{ profile.first_name }} {{ profile.last_name }}</h2>
         <img src="{{ profile.profile_image_url }}" alt="{{ profile.first_name }} {{ profile.last_name }}" class="profile-image-large">
-
+        
         <h3>Profile Details</h3>
         <ul>
             <li><strong>First Name:</strong> {{ profile.first_name }}</li>
@@ -28,5 +28,8 @@
                 <li>No status messages yet.</li>
             {% endfor %}
         </ul>
+
+        <!-- Link to create a status message -->
+        <a href="{% url 'create_status' profile.pk %}" class="create-status-btn">Create Status Message</a> 
     </div>
 {% endblock %}
