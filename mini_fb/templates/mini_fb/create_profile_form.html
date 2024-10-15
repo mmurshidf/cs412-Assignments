@@ -1,3 +1,9 @@
+<!--Profile Page
+# File: create_profile_form.html
+# Author: Mohammed Murshid (murshidm@bu.edu), 10/15/2024
+# Description: Profile creation page
+-->
+
 {% extends 'mini_fb/base.html' %}
 
 {% block title %}
@@ -10,7 +16,7 @@
 
     <form method="POST">
         {% csrf_token %}
-        {{ form.as_p }} <!-- Renders the form fields automatically -->
+        {{ form.as_p }}
         <button type="submit">Create Profile!</button>
     </form>
 {% endblock %}

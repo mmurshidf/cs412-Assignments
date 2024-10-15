@@ -1,3 +1,7 @@
+# File: forms.py
+# Author: Mohammed Murshid (murshidm@bu.edu), 10/15/2024
+# Description: Creates forms for site
+
 from django import forms
 from .models import Profile, StatusMessage
 

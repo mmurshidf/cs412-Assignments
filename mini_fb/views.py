@@ -39,12 +39,12 @@ class CreateStatusMessageView(CreateView):
         return context
 
     def form_valid(self, form):
-        profile = Profile.objects.get(pk=self.kwargs['pk'])  # Look up the Profile object by pk
+        profile = Profile.objects.get(pk=self.kwargs['pk'])
         status_message = form.save(commit=False)
-        status_message.profile = profile  # Attach the Profile object to the StatusMessage
+        status_message.profile = profile
         status_message.save()
-        return super().form_valid(form)  # Save the StatusMessage and return
+        return super().form_valid(form)
     
     def get_success_url(self):
-        profile = Profile.objects.get(pk=self.kwargs['pk'])  # Get the profile by pk
-        return reverse('show_profile', kwargs={'pk': profile.pk})  # Redirect to profile page
+        profile = Profile.objects.get(pk=self.kwargs['pk'])
+        return reverse('show_profile', kwargs={'pk': profile.pk})

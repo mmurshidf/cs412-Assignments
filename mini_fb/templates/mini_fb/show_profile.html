@@ -1,3 +1,9 @@
+<!--Profile page
+# File: show_profile.html
+# Author: Mohammed Murshid (murshidm@bu.edu), 10/15/2024
+# Description: File to show personal profiles
+-->
+
 {% extends 'mini_fb/base.html' %}
 
 {% block title %}
@@ -29,7 +35,6 @@
             {% endfor %}
         </ul>
 
-        <!-- Link to create a status message -->
         <a href="{% url 'create_status' profile.pk %}" class="create-status-btn">Create Status Message</a> 
     </div>
 {% endblock %}
