@@ -9,12 +9,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}My Mini Facebook{% endblock %}</title>
-    <link rel="stylesheet" type="text/css" href="{% static 'style1.css' %}">
+    <link rel="stylesheet" href="{% static 'style1.css' %}">
 </head>
 <body>
     <header>
         <h1>MiniFacebook</h1>
-    </header>
+        <a href="{% url 'show_all_profiles' %}" class="all-profiles-btn">All Profiles</a>
+    </header>    
 
     <!-- Nav Links for future
     <nav>

@@ -67,7 +67,7 @@ main {
     margin: 20px 0;
     background-color: #f4f4f4;
     table-layout: fixed;
-    font-family: 'Arial', sans-serif;
+    font-family: 'Arial', sans-serif; /* Changed font */
 }
 
 .profile-table, .profile-table th, .profile-table td {
@@ -79,21 +79,23 @@ main {
     text-align: left;
 }
 
+/* Table Header Styling */
 .profile-table th {
-    background-color: #6b3410;
-    color: #f5f5dc;
+    background-color: #6b3410; /* Darker brown */
+    color: #f5f5dc; /* Beige text */
     text-transform: uppercase;
     font-size: 1.3rem;
-    font-family: 'Verdana', sans-serif;
+    font-family: 'Verdana', sans-serif; /* Sleek font for headers */
     letter-spacing: 1px;
 }
 
+/* Table Row Text Styling */
 .profile-table td {
-    background-color: #faf0e6;
+    background-color: #faf0e6; /* Light beige */
     text-align: center;
     font-size: 1.1rem;
-    color: #4b0082;
-    font-family: 'Arial', sans-serif;
+    color: #4b0082; /* Dark purple */
+    font-family: 'Arial', sans-serif; /* More modern font for body */
 }
 
 .profile-image {
@@ -121,8 +123,8 @@ main {
 }
 
 .profile-details ul {
-    list-style-type: none; /* Removes bullet points */
-    padding-left: 0; /* Removes default padding */
+    list-style-type: none;
+    padding: 0;
 }
 
 .profile-details li {
@@ -134,16 +136,6 @@ main {
 .profile-details strong {
     font-weight: bold;
     color: #8b4513;
-}
-
-/* Status Messages Styling */
-ul {
-    list-style-type: none; /* Removes bullet points from status messages */
-    padding-left: 0;
-}
-
-li {
-    margin-bottom: 10px; /* Adds space between items */
 }
 
 /* Footer Styling */

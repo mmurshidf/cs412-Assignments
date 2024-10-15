@@ -3,6 +3,7 @@
 # Description: Models file to structure profile info
 
 from django.db import models
+from django.utils import timezone
 
 # Create your models here.
 
@@ -16,3 +17,14 @@ class Profile(models.Model):
 
     def __str__(self):
         return f'{self.first_name} {self.last_name}'
+    
+    def get_status_messages(self):
+        return StatusMessage.objects.filter(profile=self).order_by('-timestamp')
+
+class StatusMessage(models.Model):
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
+    message = models.TextField()
+    timestamp = models.DateTimeField(default=timezone.now)
+
+    def __str__(self):
+        return f"Status by {self.profile.first_name} on {self.timestamp.strftime('%Y-%m-%d %H:%M:%S')}"
