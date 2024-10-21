@@ -4,7 +4,7 @@
 
 from django.shortcuts import render
 from django.views.generic import ListView, DetailView, CreateView
-from .models import Profile, StatusMessage
+from .models import Profile, StatusMessage, Image
 from django.urls import reverse_lazy, reverse
 from .forms import CreateProfileForm, CreateStatusMessageForm
 
@@ -40,9 +40,14 @@ class CreateStatusMessageView(CreateView):
 
     def form_valid(self, form):
         profile = Profile.objects.get(pk=self.kwargs['pk'])
-        status_message = form.save(commit=False)
-        status_message.profile = profile
-        status_message.save()
+        sm = form.save(commit=False)
+        sm.profile = profile
+        sm.save()
+        files = self.request.FILES.getlist('files')
+        print(files)
+        for file in files:
+            image = Image(image_file=file, status_message=sm)
+            image.save()
         return super().form_valid(form)
     
     def get_success_url(self):
