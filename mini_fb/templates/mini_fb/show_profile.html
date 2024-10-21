@@ -38,6 +38,7 @@
             {% endfor %}
         </ul>
 
-        <a href="{% url 'create_status' profile.pk %}" class="create-status-btn">Create Status Message</a> 
+        <a href="{% url 'create_status' profile.pk %}" class="create-status-btn">Create Status Message</a>
+        <a href="{% url 'update_profile' profile.pk %}" class="update-profile-btn">Update Profile</a> 
     </div>
 {% endblock %}

@@ -1,0 +1,17 @@
+{% extends 'mini_fb/base.html' %}
+
+{% block title %}
+    Update Profile
+{% endblock %}
+
+{% block content %}
+    <h1>Update Your Profile</h1>
+    
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+
+        <button type="submit">Update Profile</button>
+        <a href="{% url 'show_profile' profile.pk %}">Cancel</a>
+    </form>
+{% endblock %}
