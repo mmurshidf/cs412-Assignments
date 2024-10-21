@@ -3,7 +3,7 @@
 # Description: Creates views for site
 
 from django.shortcuts import render
-from django.views.generic import ListView, DetailView, CreateView, UpdateView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from .models import Profile, StatusMessage, Image
 from django.urls import reverse_lazy, reverse
 from .forms import CreateProfileForm, CreateStatusMessageForm, UpdateProfileForm
@@ -61,3 +61,19 @@ class UpdateProfileView(UpdateView):
 
     def get_success_url(self):
         return reverse('show_profile', kwargs={'pk': self.object.pk})
+    
+class DeleteStatusMessageView(DeleteView):
+    model = StatusMessage
+    template_name = 'mini_fb/delete_status_form.html'
+    context_object_name = 'status_message'
+
+    def get_success_url(self):
+        return reverse('show_profile', kwargs={'pk': self.object.profile.pk})
+    
+class UpdateStatusMessageView(UpdateView):
+    model = StatusMessage
+    fields = ['message']
+    template_name = 'mini_fb/update_status_form.html'
+
+    def get_success_url(self):
+        return reverse('show_profile', kwargs={'pk': self.object.profile.pk})

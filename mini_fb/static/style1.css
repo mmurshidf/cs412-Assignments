@@ -248,3 +248,8 @@ a:hover {
     margin-top: 10px;
     font-style: italic;
 }
+
+.status-message .btn {
+    margin-top: 10px;
+    align-self: flex-start;
+}
