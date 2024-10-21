@@ -59,7 +59,7 @@ def confirmation(request):
         # Add extras to the total
         total += sum(extra_prices[extra] for extra in extras if extra in extra_prices)
 
-        # Calculate ready time
+        # Calculate ready time 
         ready_time_minutes = random.randint(30, 60)
         ready_time = (datetime.now() + timedelta(minutes=ready_time_minutes)).strftime("%I:%M %p")
 

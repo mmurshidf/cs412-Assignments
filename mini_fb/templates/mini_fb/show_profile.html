@@ -29,6 +29,9 @@
                 <li>
                     <strong>Message:</strong> {{ status.message }} <br>
                     <small><strong>Posted at:</strong> {{ status.timestamp }}</small>
+                    {% for img in status.get_images %}
+                        <img src="{{ img.image_file.url }}" alt="Image" width="200">
+                    {% endfor %}
                 </li>
             {% empty %}
                 <li>No status messages yet.</li>

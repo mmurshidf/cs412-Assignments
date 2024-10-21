@@ -32,3 +32,14 @@ class StatusMessage(models.Model):
 
     def __str__(self):
         return f"Status by {self.profile.first_name} on {self.timestamp.strftime('%Y-%m-%d %H:%M:%S')}"
+    
+    def get_images(self):
+        return Image.objects.filter(status_message=self)
+
+class Image(models.Model):
+    image_file = models.ImageField(upload_to='images/')
+    status_message = models.ForeignKey(StatusMessage, on_delete=models.CASCADE, related_name='images')
+    timestamp = models.DateTimeField(default=timezone.now)
+
+    def __str__(self):
+        return f"Image uploaded on {self.timestamp}"
