@@ -1,0 +1,35 @@
+<!--
+# File: news_feed.html
+# Author: Mohammed Murshid (murshidm@bu.edu), 10/27/2024
+# Description: News Feed page
+-->
+
+{% extends 'mini_fb/base.html' %}
+
+{% block title %}
+    {{ profile.first_name }}'s News Feed
+{% endblock %}
+
+{% block content %}
+    <h2>{{ profile.first_name }}'s News Feed</h2>
+    <a href="{% url 'show_profile' profile.pk %}" class="btn">Back to Profile</a>
+    <hr>
+    <div class="news-feed">
+        {% for status in news_feed %}
+            <div class="status-message">
+                <div class="status-header">
+                    <img src="{{ status.profile.profile_image_url }}" alt="{{ status.profile.first_name }}" class="profile-image-small">
+                    <strong>{{ status.profile.first_name }} {{ status.profile.last_name }}</strong>
+                    <small>{{ status.timestamp }}</small>
+                </div>
+                <p>{{ status.message }}</p>
+                {% for img in status.get_images %}
+                    <img src="{{ img.image_file.url }}" alt="Image" class="news-image">
+                {% endfor %}
+                <hr>
+            </div>
+        {% empty %}
+            <p>No recent updates to show.</p>
+        {% endfor %}
+    </div>
+{% endblock %}

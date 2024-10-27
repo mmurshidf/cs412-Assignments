@@ -5,6 +5,7 @@
 from django.db import models
 from django.utils import timezone
 from django.urls import reverse
+from django.db.models import Q
 
 # Create your models here.
 
@@ -24,6 +25,40 @@ class Profile(models.Model):
     
     def get_absolute_url(self):
         return reverse('show_profile', kwargs={'pk': self.pk})
+    
+    def get_friends(self):
+        friends_1 = Friend.objects.filter(profile1=self).values_list('profile2', flat=True)
+        friends_2 = Friend.objects.filter(profile2=self).values_list('profile1', flat=True)
+        friends_ids = list(friends_1) + list(friends_2)
+        return Profile.objects.filter(id__in=friends_ids)
+    
+    def add_friend(self, other):
+        """Add a Friend relation between this profile and another, avoiding duplicates and self-friending."""
+        if self == other:
+            return
+
+        friendship_exists = Friend.objects.filter(
+            Q(profile1=self, profile2=other) | Q(profile1=other, profile2=self)
+        ).exists()
+
+        if not friendship_exists:
+            Friend.objects.create(profile1=self, profile2=other)
+    
+    def get_friend_suggestions(self):
+        existing_friends = self.get_friends()
+        suggestions = Profile.objects.exclude(
+            Q(id=self.id) | Q(id__in=[friend.id for friend in existing_friends])
+        )
+        
+        return suggestions
+
+    def get_news_feed(self):
+        friends = self.get_friends()
+        status_messages = StatusMessage.objects.filter(
+            Q(profile=self) | Q(profile__in=friends)
+        ).order_by('-timestamp')
+
+        return status_messages
 
 class StatusMessage(models.Model):
     profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
@@ -43,3 +78,11 @@ class Image(models.Model):
 
     def __str__(self):
         return f"Image uploaded on {self.timestamp}"
+    
+class Friend(models.Model):
+    profile1 = models.ForeignKey(Profile, related_name='friendships_initiated', on_delete=models.CASCADE)
+    profile2 = models.ForeignKey(Profile, related_name='friendships_received', on_delete=models.CASCADE)
+    timestamp = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.profile1.first_name} {self.profile1.last_name} & {self.profile2.first_name} {self.profile2.last_name}"

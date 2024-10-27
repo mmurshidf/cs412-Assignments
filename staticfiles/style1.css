@@ -253,3 +253,30 @@ a:hover {
     margin-top: 10px;
     align-self: flex-start;
 }
+
+.friends-list {
+    margin: 20px 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.friend-img {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 10px;
+    border: 2px solid #8B4513;
+    margin-bottom: 5px;
+}
+
+.friend-card {
+    text-align: center;
+    margin: 10px;
+    padding: 10px;
+    border: 1px solid #8B4513;
+    border-radius: 5px;
+    background-color: #fdf3e7;
+    display: inline-block;
+    vertical-align: top;
+}

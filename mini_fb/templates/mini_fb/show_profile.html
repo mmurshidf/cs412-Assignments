@@ -1,7 +1,7 @@
-<!--Profile page
+<!--
 # File: show_profile.html
-# Author: Mohammed Murshid (murshidm@bu.edu), 10/15/2024
-# Description: File to show personal profiles
+# Author: Mohammed Murshid (murshidm@bu.edu), 10/27/2024
+# Description: Profile Page
 -->
 
 {% extends 'mini_fb/base.html' %}
@@ -40,7 +40,23 @@
             {% endfor %}
         </ul>
 
+        <h3>{{ profile.first_name }}'s Friends</h3>
+        <div class="friends-list">
+            {% for friend in profile.get_friends %}
+                <div class="friend-card">
+                    <a href="{% url 'show_profile' friend.pk %}">
+                        <img src="{{ friend.profile_image_url }}" alt="{{ friend.first_name }} {{ friend.last_name }}" class="friend-img">
+                        <p>{{ friend.first_name }} {{ friend.last_name }}</p>
+                    </a>
+                </div>
+            {% empty %}
+                <p>This user has no friends yet.</p>
+            {% endfor %}
+        </div>
+        
         <a href="{% url 'create_status' profile.pk %}" class="create-status-btn">Create Status Message</a>
-        <a href="{% url 'update_profile' profile.pk %}" class="update-profile-btn">Update Profile</a> 
+        <a href="{% url 'update_profile' profile.pk %}" class="update-profile-btn">Update Profile</a>
+        <a href="{% url 'friend_suggestions' profile.pk %}" class="suggestions-btn">See Friend Suggestions</a>
+        <a href="{% url 'news_feed' profile.pk %}" class="btn">News Feed</a>
     </div>
 {% endblock %}

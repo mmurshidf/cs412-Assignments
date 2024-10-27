@@ -1,0 +1,27 @@
+<!--
+# File: friend_suggestions.html
+# Author: Mohammed Murshid (murshidm@bu.edu), 10/27/2024
+# Description: Friends page
+-->
+
+{% extends 'mini_fb/base.html' %}
+
+{% block title %}
+    {{ profile.first_name }} {{ profile.last_name }}'s Friend Suggestions
+{% endblock %}
+
+{% block content %}
+    <h2>People {{ profile.first_name }} {{ profile.last_name }} may know:</h2>
+    <div class="suggestions-container">
+        {% for suggestion in friend_suggestions %}
+            <div class="suggestion">
+                <a href="{% url 'add_friend' profile.pk suggestion.pk %}" class="add-friend-btn">Add Friend</a>
+                <img src="{{ suggestion.profile_image_url }}" alt="{{ suggestion.first_name }} {{ suggestion.last_name }}" class="profile-image">
+                <p>{{ suggestion.first_name }} {{ suggestion.last_name }}</p>
+            </div>
+        {% empty %}
+            <p>No suggestions available at this time.</p>
+        {% endfor %}
+    </div>
+    <a href="{% url 'show_profile' profile.pk %}" class="back-btn">Back to Profile</a>
+{% endblock %}
