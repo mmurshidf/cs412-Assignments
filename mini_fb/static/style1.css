@@ -18,7 +18,7 @@ body {
 header {
     background-color: #8b4513;
     color: white;
-    padding: 10px;
+    padding: 15px;
     text-align: center;
     font-size: 2rem;
     font-weight: bold;
@@ -27,27 +27,7 @@ header {
     position: relative;
 }
 
-.all-profiles-btn {
-    background-color: #8b4513;
-    color: white;
-    padding: 5px 12px;
-    font-size: 0.9rem;
-    border-radius: 20px;
-    display: inline-block;
-    margin-top: 10px;
-    text-decoration: none;
-    border: 2px solid #4b0082;
-    transition: background-color 0.3s ease, transform 0.3s ease, border-color 0.3s ease;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-.all-profiles-btn:hover {
-    background-color: #6b3410;
-    border-color: #f5f5dc;
-    transform: scale(1.05);
-}
-
-.create-profile-btn {
+.all-profiles-btn, .create-profile-btn, .login-btn, .logout-btn {
     background-color: #4b0082;
     color: white;
     padding: 5px 12px;
@@ -55,11 +35,39 @@ header {
     border-radius: 20px;
     text-decoration: none;
     border: 2px solid #8b4513;
-    margin-left: 10px;
+    margin: 5px;
+    transition: background-color 0.3s ease, transform 0.3s ease, border-color 0.3s ease;
+    display: inline-block;
 }
 
-.create-profile-btn:hover {
+.all-profiles-btn:hover, .create-profile-btn:hover, .login-btn:hover, .logout-btn:hover {
     background-color: #6b3410;
+    border-color: #f5f5dc;
+    transform: scale(1.05);
+}
+
+.login-status {
+    font-size: 1.1rem;
+    color: #faf0e6;
+    margin-top: 10px;
+    display: block;
+    font-weight: normal;
+}
+
+/* Inline form styles for logout button */
+.logout-btn {
+    background: none;
+    border: none;
+    color: #4b0082;
+    font-size: 1rem;
+    padding: 5px;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.logout-btn:hover {
+    color: #f5f5dc;
+    text-decoration: none;
 }
 
 main {
@@ -279,4 +287,36 @@ a:hover {
     background-color: #fdf3e7;
     display: inline-block;
     vertical-align: top;
+}
+
+.logout-confirmation {
+    text-align: center;
+    padding: 20px;
+}
+
+.logout-confirmation h2 {
+    font-size: 2rem;
+    color: #4b0082;
+    margin-bottom: 10px;
+}
+
+.logout-confirmation p {
+    font-size: 1.2rem;
+    color: #8b4513;
+    margin-bottom: 20px;
+}
+
+.login-again-btn {
+    display: inline-block;
+    background-color: #8b4513;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.login-again-btn:hover {
+    background-color: #6b3410;
 }

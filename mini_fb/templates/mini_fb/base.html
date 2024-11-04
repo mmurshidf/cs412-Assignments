@@ -16,6 +16,16 @@
         <h1>MiniFacebook</h1>
         <a href="{% url 'show_all_profiles' %}" class="all-profiles-btn">All Profiles</a>
         <a href="{% url 'create_profile' %}" class="create-profile-btn">Create Profile</a>
+        {% if user.is_authenticated %}
+        <form action="{% url 'logout' %}" method="post" style="display:inline;">
+            {% csrf_token %}
+            <button type="submit" style="border: 3px solid #4b0082; border-radius: 20px; color:white; font-size: 1rem;">Logout</button>
+        </form>
+        <span>Logged In</span>
+        {% else %}
+            <a style="border: 3px solid #4b0082; border-radius: 20px; color:white; font-size: 1rem;" href="{% url 'login' %}">Login</a></br>
+            <span style="color:white; font-size: 1rem;">Not Logged In</span>
+        {% endif %}
     </header> 
 
     <main>

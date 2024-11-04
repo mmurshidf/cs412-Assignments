@@ -32,8 +32,10 @@
                     {% for img in status.get_images %}
                         <img src="{{ img.image_file.url }}" alt="Image" width="200">
                     {% endfor %}
+                    {% if user.is_authenticated and user == profile.user %}
                     <a href="{% url 'update_status' status.pk %}" class="btn">Update</a>
                     <a href="{% url 'delete_status' status.pk %}" class="btn">Delete</a>
+                    {% endif %}
                 </li>
             {% empty %}
                 <li>No status messages yet.</li>
@@ -54,9 +56,14 @@
             {% endfor %}
         </div>
         
-        <a href="{% url 'create_status' profile.pk %}" class="create-status-btn">Create Status Message</a>
-        <a href="{% url 'update_profile' profile.pk %}" class="update-profile-btn">Update Profile</a>
-        <a href="{% url 'friend_suggestions' profile.pk %}" class="suggestions-btn">See Friend Suggestions</a>
-        <a href="{% url 'news_feed' profile.pk %}" class="btn">News Feed</a>
+        {% if user.is_authenticated %}
+            {% if user == profile.user %}
+                <!-- Only the profile owner can see these links -->
+                <a href="{% url 'create_status' profile.pk %}" class="create-status-btn">Create Status Message</a>
+                <a href="{% url 'update_profile' profile.pk %}" class="update-profile-btn">Update Profile</a>
+                <a href="{% url 'friend_suggestions' profile.pk %}" class="suggestions-btn">See Friend Suggestions</a>
+                <a href="{% url 'news_feed' profile.pk %}" class="btn">News Feed</a>
+            {% endif %}
+        {% endif %}
     </div>
 {% endblock %}
