@@ -59,10 +59,10 @@
         {% if user.is_authenticated %}
             {% if user == profile.user %}
                 <!-- Only the profile owner can see these links -->
-                <a href="{% url 'create_status' profile.pk %}" class="create-status-btn">Create Status Message</a>
-                <a href="{% url 'update_profile' profile.pk %}" class="update-profile-btn">Update Profile</a>
-                <a href="{% url 'friend_suggestions' profile.pk %}" class="suggestions-btn">See Friend Suggestions</a>
-                <a href="{% url 'news_feed' profile.pk %}" class="btn">News Feed</a>
+                <a href="{% url 'create_status' %}" class="create-status-btn">Create Status Message</a>
+                <a href="{% url 'update_profile' %}" class="update-profile-btn">Update Profile</a>
+                <a href="{% url 'friend_suggestions' %}" class="suggestions-btn">See Friend Suggestions</a>
+                <a href="{% url 'news_feed' %}" class="btn">News Feed</a>
             {% endif %}
         {% endif %}
     </div>

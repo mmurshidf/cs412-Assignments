@@ -15,7 +15,7 @@
     <div class="suggestions-container">
         {% for suggestion in friend_suggestions %}
             <div class="suggestion">
-                <a href="{% url 'add_friend' profile.pk suggestion.pk %}" class="add-friend-btn">Add Friend</a>
+                <a href="{% url 'add_friend' profile.pk %}" class="add-friend-btn">Add Friend</a>
                 <img src="{{ suggestion.profile_image_url }}" alt="{{ suggestion.first_name }} {{ suggestion.last_name }}" class="profile-image">
                 <p>{{ suggestion.first_name }} {{ suggestion.last_name }}</p>
             </div>

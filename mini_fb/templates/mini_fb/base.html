@@ -17,6 +17,9 @@
         <a href="{% url 'show_all_profiles' %}" class="all-profiles-btn">All Profiles</a>
         <a href="{% url 'create_profile' %}" class="create-profile-btn">Create Profile</a>
         {% if user.is_authenticated %}
+        {% if user_profile %}
+        <a style="border: 3px solid #4b0082; border-radius: 20px; color:white; font-size: 1rem;" href="{% url 'show_profile' user_profile.pk %}">My Profile</a>
+        {% endif %}
         <form action="{% url 'logout' %}" method="post" style="display:inline;">
             {% csrf_token %}
             <button type="submit" style="border: 3px solid #4b0082; border-radius: 20px; color:white; font-size: 1rem;">Logout</button>
