@@ -25,6 +25,10 @@
         <div>
             <label for="id_password1">Password:</label>
             {{ user_form.password1 }}
+            <span style="color: red;"> -Your password cannot be too similar to your other personal information.</span>
+            <span style="color: red;">-Your password must contain at least 8 characters.</span>
+            <span style="color: red;">-Your password cannot be a commonly used password.</span>
+            <span style="color: red;">-Your password cannot be entirely numeric.</span>
         </div>
         <div>
             <label for="id_password2">Password confirmation:</label>
