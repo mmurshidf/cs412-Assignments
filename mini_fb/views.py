@@ -8,7 +8,6 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Profile, StatusMessage, Image
 from django.urls import reverse_lazy, reverse
 from .forms import CreateProfileForm, CreateStatusMessageForm, UpdateProfileForm
-from django.contrib.auth.forms import UserCreationForm
 
 # Create your views here.
 
@@ -35,28 +34,11 @@ class CreateProfileView(CreateView):
     template_name = 'mini_fb/create_profile_form.html'
     success_url = reverse_lazy('show_all_profiles')
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['user_creation_form'] = UserCreationForm()
-        return context
-
-    def form_valid(self, form):
-        user_creation_form = UserCreationForm(self.request.POST)
-        
-        if user_creation_form.is_valid():
-            user = user_creation_form.save()
-            form.instance.user = user
-            return super().form_valid(form)
-        else:
-            return self.form_invalid(form)
-
-class CreateStatusMessageView(CreateView):
-    """ View to create a status message
-    """
+class CreateStatusMessageView(LoginRequiredMixin, CreateView):
     model = StatusMessage
     form_class = CreateStatusMessageForm
     template_name = 'mini_fb/create_status_form.html'
-
+    
     def get_object(self):
         return get_object_or_404(Profile, user=self.request.user)
 
@@ -78,9 +60,12 @@ class CreateStatusMessageView(CreateView):
             img.save()
 
         return super().form_valid(form)
-
+    
     def get_success_url(self):
         return reverse('show_profile', kwargs={'pk': self.get_object().pk})
+    
+    def get_login_url(self):
+        return reverse('login')
 
 class UpdateProfileView(LoginRequiredMixin, UpdateView):
     model = Profile
@@ -120,9 +105,12 @@ class UpdateStatusMessageView(LoginRequiredMixin, UpdateView):
 
 class CreateFriendView(LoginRequiredMixin, View):
     def dispatch(self, request, *args, **kwargs):
-        profile = get_object_or_404(Profile, pk=kwargs['pk'])
+        profile = get_object_or_404(Profile, user=request.user)
         other_profile = get_object_or_404(Profile, pk=kwargs['other_pk'])
-        profile.add_friend(other_profile)
+        try:
+            profile.add_friend(other_profile)
+        except ValueError as e:
+            print(f"Error: {e}")
         return redirect('show_profile', pk=profile.pk)
     
     def get_login_url(self):
@@ -132,6 +120,9 @@ class ShowFriendSuggestionsView(LoginRequiredMixin, DetailView):
     model = Profile
     template_name = 'mini_fb/friend_suggestions.html'
     context_object_name = 'profile'
+
+    def get_object(self):
+        return get_object_or_404(Profile, user=self.request.user)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -153,3 +144,6 @@ class ShowNewsFeedView(LoginRequiredMixin, DetailView):
     
     def get_login_url(self):
         return reverse('login')
+    
+    def get_object(self):
+        return get_object_or_404(Profile, user=self.request.user)
