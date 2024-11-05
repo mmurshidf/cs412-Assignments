@@ -4,19 +4,48 @@
 # Description: Profile creation page
 -->
 
+<!-- create_profile_form.html -->
 {% extends 'mini_fb/base.html' %}
 
 {% block title %}
-    Create a Profile
+    Create Profile
 {% endblock %}
 
 {% block content %}
-    <h1>Create a Profile</h1>
-    <p>Fill in the form below to create your new profile.</p>
-
-    <form method="POST">
+    <h2>Create Your Profile</h2>
+    <form method="post" action="" enctype="multipart/form-data">
         {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Create Profile!</button>
+
+        <h3>User Account Information</h3>
+        {{ user_form.non_field_errors }}
+        <div>
+            <label for="id_username">Username:</label>
+            {{ user_form.username }}
+        </div>
+        <div>
+            <label for="id_password1">Password:</label>
+            {{ user_form.password1 }}
+        </div>
+        <div>
+            <label for="id_password2">Password confirmation:</label>
+            {{ user_form.password2 }}
+        </div>
+
+        <h3>Profile Information</h3>
+        {{ form.non_field_errors }}
+        {% for field in form %}
+            <div>
+                <label for="{{ field.id_for_label }}">{{ field.label }}:</label>
+                {{ field }}
+                {% if field.help_text %}
+                    <small>{{ field.help_text }}</small>
+                {% endif %}
+                {% for error in field.errors %}
+                    <div class="error">{{ error }}</div>
+                {% endfor %}
+            </div>
+        {% endfor %}
+
+        <button type="submit">Create Profile</button>
     </form>
 {% endblock %}

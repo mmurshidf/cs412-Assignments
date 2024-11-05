@@ -8,6 +8,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Profile, StatusMessage, Image
 from django.urls import reverse_lazy, reverse
 from .forms import CreateProfileForm, CreateStatusMessageForm, UpdateProfileForm
+from django.contrib.auth.forms import UserCreationForm
 
 # Create your views here.
 
@@ -33,6 +34,24 @@ class CreateProfileView(CreateView):
     form_class = CreateProfileForm
     template_name = 'mini_fb/create_profile_form.html'
     success_url = reverse_lazy('show_all_profiles')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        if 'user_form' not in kwargs:
+            context['user_form'] = UserCreationForm()
+        return context
+
+    def form_valid(self, form):
+        user_form = UserCreationForm(self.request.POST)
+        if user_form.is_valid():
+            user = user_form.save()
+            form.instance.user = user
+            return super().form_valid(form)
+        else:
+            return self.form_invalid(form)
+    
+    def get_success_url(self):
+        return reverse('show_profile', kwargs={'pk': self.object.pk})
 
 class CreateStatusMessageView(LoginRequiredMixin, CreateView):
     model = StatusMessage
