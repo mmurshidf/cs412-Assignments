@@ -28,6 +28,7 @@ urlpatterns = [
     path("restaurant/", include("restaurant.urls")), ## restaurant URL
     path('admin/', admin.site.urls),
     path('mini_fb/', include('mini_fb.urls')),  # Routes to mini_fb app
+    path('voter_analytics/', include('voter_analytics.urls')),  # Routes to voter_analytics app
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

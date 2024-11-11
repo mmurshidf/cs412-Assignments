@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Voter Management{% endblock %}</title>
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <nav>
+        <a href="{% url 'voters' %}">Home</a>
+        <!-- Add more navigation links here if needed -->
+    </nav>
+    <hr>
+
+    <!-- Content Block -->
+    <div class="content">
+        {% block content %}{% endblock %}
+    </div>
+
+</body>
+</html>
