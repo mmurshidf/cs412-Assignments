@@ -1,3 +1,7 @@
+# File: models.py
+# Author: Mohammed Murshid (murshidm@bu.edu), 11/11/2024
+# Description: Models file
+
 from django.db import models
 from datetime import datetime
 import pandas as pd

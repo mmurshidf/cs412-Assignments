@@ -1,10 +1,13 @@
+<!--
+# File: voter_list.html
+# Author: Mohammed Murshid (murshidm@bu.edu), 11/11/2024
+# Description: Voter List page
+-->
+
 {% extends 'voter_analytics/base.html' %}
-
 {% block title %}Voter List{% endblock %}
-
 {% block content %}
 <h1>Voter List</h1>
-
 <!-- Filtering Form -->
 <form method="get">
     <!-- Party Affiliation Filter -->
@@ -16,7 +19,6 @@
         <option value="I">Independent</option>
         <option value="U">Unaffiliated</option>
     </select>
-
     <!-- Minimum Date of Birth Filter -->
     <label for="min_year">Minimum Date of Birth (Year):</label>
     <select name="min_year" id="min_year">
@@ -25,7 +27,6 @@
             <option value="{{ year }}">{{ year }}</option>
         {% endfor %}
     </select>
-
     <!-- Maximum Date of Birth Filter -->
     <label for="max_year">Maximum Date of Birth (Year):</label>
     <select name="max_year" id="max_year">
@@ -34,7 +35,6 @@
             <option value="{{ year }}">{{ year }}</option>
         {% endfor %}
     </select>
-
     <!-- Voter Score Filter -->
     <label for="voter_score">Voter Score:</label>
     <select name="voter_score" id="voter_score">
@@ -43,7 +43,6 @@
             <option value="{{ score }}">{{ score }}</option>
         {% endfor %}
     </select>
-
     <!-- Voted in Specific Elections Filter -->
     <fieldset>
         <legend>Voted in Specific Elections:</legend>
@@ -53,10 +52,8 @@
         <label><input type="checkbox" name="voted_in_elections" value="v22general"> 2022 General</label>
         <label><input type="checkbox" name="voted_in_elections" value="v23town"> 2023 Town</label>
     </fieldset>
-
     <button type="submit">Filter</button>
 </form>
-
 <!-- Voter List Table -->
 <table border="1">
     <tr>
@@ -89,20 +86,17 @@
     </tr>
     {% endfor %}
 </table>
-
 <!-- Pagination Controls -->
 <div class="pagination">
     {% if is_paginated %}
         <span>
             Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
         </span>
-        
         {% if page_obj.has_previous %}
             <a href="?page={{ page_obj.previous_page_number }}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}">
                 Previous
             </a>
         {% endif %}
-        
         {% if page_obj.has_next %}
             <a href="?page={{ page_obj.next_page_number }}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}">
                 Next

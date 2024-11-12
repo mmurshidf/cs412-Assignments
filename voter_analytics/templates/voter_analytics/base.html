@@ -1,3 +1,9 @@
+<!--Base Page with header and navigation
+# File: base.html
+# Author: Mohammed Murshid (murshidm@bu.edu), 11/11/2024
+# Description: Base file to hold template
+-->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,18 +11,15 @@
     <title>{% block title %}Voter Management{% endblock %}</title>
 </head>
 <body>
-
     <!-- Navigation Bar -->
     <nav>
         <a href="{% url 'voters' %}">Home</a>
-        <!-- Add more navigation links here if needed -->
+        <a href="{% url 'graphs' %}">Voter Data Graphs</a>
     </nav>
     <hr>
-
     <!-- Content Block -->
     <div class="content">
         {% block content %}{% endblock %}
     </div>
-
 </body>
 </html>
