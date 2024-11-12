@@ -5,13 +5,12 @@ name = "pypi"
 
 [packages]
 django = "*"
-whitenoise = "*"
-dj-database-url = "*"
 gunicorn = "*"
-psycopg2-binary = "*"
-python-dotenv = "*"
+pillow = "*"
+pandas = "*"
+plotly = "*"
 
 [dev-packages]
 
 [requires]
-python_version = "3.11"
+python_version = "3.10"
