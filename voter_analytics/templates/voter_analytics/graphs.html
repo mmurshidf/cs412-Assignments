@@ -5,9 +5,12 @@
 -->
 
 {% extends 'voter_analytics/base.html' %}
+
 {% block title %}Voter Data Graphs{% endblock %}
+
 {% block content %}
 <h1>Voter Data Graphs</h1>
+
 <!-- Filtering Form -->
 <form method="get" action="">
     <label for="party_affiliation">Party Affiliation:</label>
@@ -17,6 +20,7 @@
             <option value="{{ party }}" {% if request.GET.party_affiliation == party %}selected{% endif %}>{{ party }}</option>
         {% endfor %}
     </select>
+
     <label for="min_dob">Minimum Date of Birth (Year):</label>
     <select name="min_dob" id="min_dob">
         <option value="">Any</option>
@@ -24,6 +28,7 @@
             <option value="{{ year }}" {% if request.GET.min_dob == year|stringformat:"s" %}selected{% endif %}>{{ year }}</option>
         {% endfor %}
     </select>
+
     <label for="max_dob">Maximum Date of Birth (Year):</label>
     <select name="max_dob" id="max_dob">
         <option value="">Any</option>
@@ -31,6 +36,7 @@
             <option value="{{ year }}" {% if request.GET.max_dob == year|stringformat:"s" %}selected{% endif %}>{{ year }}</option>
         {% endfor %}
     </select>
+
     <label for="voter_score">Voter Score:</label>
     <select name="voter_score" id="voter_score">
         <option value="">All</option>
@@ -38,6 +44,7 @@
             <option value="{{ score }}" {% if request.GET.voter_score == score|stringformat:"s" %}selected{% endif %}>{{ score }}</option>
         {% endfor %}
     </select>
+
     <fieldset>
         <legend>Voted in Specific Elections:</legend>
         {% for election in election_fields %}
@@ -47,19 +54,25 @@
             </label>
         {% endfor %}
     </fieldset>
+
     <button type="submit">Filter</button>
 </form>
+
 <!-- Graphs Section -->
-<div>
+<div class="graph-container">
     <h2>Voter Distribution by Year of Birth</h2>
     {{ year_of_birth_histogram|safe }}
 </div>
-<div>
+
+<div class="graph-container">
     <h2>Voter Distribution by Party Affiliation</h2>
     {{ party_affiliation_pie|safe }}
 </div>
-<div>
+
+<div class="graph-container">
     <h2>Voter Participation by Election</h2>
     {{ election_participation_bar|safe }}
 </div>
+
+<p><a href="{% url 'voters' %}">Back to Voter List</a></p>
 {% endblock %}
