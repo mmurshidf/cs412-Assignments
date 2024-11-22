@@ -3,20 +3,18 @@
 # Description: Models file to for final project/job application app
 
 from django.db import models
+from django.contrib.auth.models import User
 
 # Create your models here.
 
-# User model that represents a user by giving them a username, email, and profile
-class User(models.Model):
-
+# User model that represents a user by giving them a username, email, and profile, first name, and last name
+class Account(models.Model):
     #Fields
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="accounts", default=1)
     username = models.CharField(max_length=50, unique=True)
     email = models.EmailField(unique=True)
     profile = models.TextField(blank=True, null=True)
-
-    def __str__(self):
-        return self.username
-
+    
 #Company model that represents the company by its name, industry, and location
 class Company(models.Model):
 
@@ -40,7 +38,7 @@ class JobApplication(models.Model):
     ]
 
     #Fields and applicant status
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(Account, on_delete=models.CASCADE)
     company = models.ForeignKey(Company, on_delete=models.CASCADE)
     position_title = models.CharField(max_length=100)
     application_date = models.DateField()
