@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'restaurant', ## restaurant app
     'mini_fb', ## mini_fb
     'voter_analytics', ## Voter_analytics
+    'project', ## final project
 ]
 
 MIDDLEWARE = [
