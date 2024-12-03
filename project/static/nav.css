@@ -1,0 +1,84 @@
+/* nav.css - Updated Stylish Navigation Bar */
+
+/* General Reset for the Navbar */
+header {
+    background: linear-gradient(90deg, #BFD7EA, #F5E6CA); /* Light blue to beige gradient */
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-bottom: 3px solid #BFD7EA;
+}
+
+/* Header Title */
+header h1 {
+    color: #4A90E2; /* Light blue text for the title */
+    font-family: 'Georgia', serif;
+    font-size: 2.5rem;
+    margin: 0;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Navigation Links */
+header a {
+    text-decoration: none;
+    font-family: 'Roboto', sans-serif;
+    color: #FFFFFF;
+    font-size: 1rem; /* Adjusted font size for a smaller button */
+    margin: 10px auto; /* Center margin */
+    padding: 5px 20px; /* Slimmer padding for a smaller oval */
+    background-color: rgba(74, 144, 226, 0.8); /* Semi-transparent light blue */
+    border-radius: 15px; /* Smaller oval shape */
+    transition: background-color 0.3s, transform 0.3s;
+    display: inline-block;
+}
+
+/* Center the Home Button */
+header a.home-btn {
+    display: block; /* Stack below the title */
+    margin: 15px auto; /* Center alignment with spacing */
+    background-color: #F5E6CA; /* Beige background for active link */
+    color: #4A90E2;
+    font-weight: bold;
+    width: 150px; /* Explicit width for button proportionality */
+    text-align: center;
+}
+
+/* Hover Effects for Links */
+header a:hover {
+    background-color: #F5E6CA;
+    color: #4A90E2;
+    transform: scale(1.1);
+}
+
+/* Footer Style */
+footer {
+    text-align: center;
+    margin-top: 20px;
+    padding: 10px;
+    background: #F5E6CA;
+    color: #4A90E2;
+    font-family: 'Courier New', monospace;
+    font-size: 1rem;
+    box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.1);
+}
+
+footer p {
+    margin: 0;
+}
+
+/* General Theme for Main Content */
+body {
+    background-color: #FDFBF3;
+    color: #4A90E2;
+    font-family: 'Verdana', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+main {
+    margin: 20px;
+    padding: 20px;
+    background: #FFFFFF;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}

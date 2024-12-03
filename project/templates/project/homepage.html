@@ -1,0 +1,37 @@
+{% extends 'project/base.html' %}
+{% load static %}
+
+{% block title %}
+Home - Jobify
+{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'homepage.css' %}">
+<h2>Job Applications</h2>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Position</th>
+            <th>Company</th>
+            <th>Location</th>
+            <th>Industry</th>
+            {% if is_logged_in %}
+            <th>Status</th>
+            {% endif %}
+        </tr>
+    </thead>
+    <tbody>
+        {% for job in job_applications %}
+        <tr>
+            <td><a href="{% url 'job_detail' job.id %}">{{ job.position_title }}</a></td>
+            <td>{{ job.company.name }}</td>
+            <td>{{ job.company.location }}</td>
+            <td>{{ job.company.industry }}</td>
+            {% if is_logged_in %}
+            <td>{{ job.get_status_display }}</td>
+            {% endif %}
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

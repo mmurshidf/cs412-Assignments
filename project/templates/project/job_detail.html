@@ -1,0 +1,14 @@
+{% extends 'project/base.html' %}
+
+{% block title %}
+{{ job.position_title }} - Job Details
+{% endblock %}
+
+{% block content %}
+<h2>{{ job.position_title }}</h2>
+<p><strong>Company:</strong> {{ job.company.name }}</p>
+<p><strong>Industry:</strong> {{ job.company.industry }}</p>
+<p><strong>Location:</strong> {{ job.company.location }}</p>
+<p><strong>Date Applied:</strong> {{ job.application_date }}</p>
+<p><strong>Status:</strong> {{ job.get_status_display }}</p>
+{% endblock %}

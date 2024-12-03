@@ -1,0 +1,36 @@
+<!-- Base Page with header and navigation
+# File: base.html
+# Author: Mohammed Murshid (murshidm@bu.edu), 11/21/2024
+# Description: Base file to hold template
+-->
+
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Jobify{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'nav.css' %}">
+</head>
+<body>
+    <header>
+        <h1>Jobify</h1>
+        <a href="{% url 'homepage' %}" class="home-btn">Home</a>
+        {% if user.is_authenticated %}
+            <a href="{% url 'logout' %}" class="logout-btn">Logout</a>
+        {% else %}
+            <a href="{% url 'login' %}" class="login-btn">Login</a>
+        {% endif %}
+    </header> 
+
+    <main>
+        {% block content %}
+        <!-- Page-specific content will go here -->
+        {% endblock %}
+    </main>
+
+    <footer>
+        <p>© 2024 Jobify</p>
+    </footer>
+</body>
+</html>
