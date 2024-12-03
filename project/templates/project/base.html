@@ -9,12 +9,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Jobify{% endblock %}</title>
+    <title>{% block title %}CareerHire{% endblock %}</title>
     <link rel="stylesheet" href="{% static 'nav.css' %}">
 </head>
 <body>
     <header>
-        <h1>Jobify</h1>
+        <h1>CareerHire</h1>
         <a href="{% url 'homepage' %}" class="home-btn">Home</a>
         {% if user.is_authenticated %}
             <form method="post" action="{% url 'logout' %}" style="display: inline;">
@@ -35,7 +35,7 @@
     </main>
 
     <footer>
-        <p>© 2024 Jobify</p>
+        <p>© 2024 CareerHire</p>
     </footer>
 </body>
 </html>
