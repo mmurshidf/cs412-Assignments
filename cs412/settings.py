@@ -28,8 +28,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['cs412-assignments.onrender.com', '127.0.0.1', '*']
 
-LOGIN_REDIRECT_URL = '/mini_fb/'
-LOGIN_URL = '/mini_fb/login/'
+LOGIN_REDIRECT_URL = '/project/'
+LOGIN_URL = '/mproject/login/'
 # Application definition
 
 INSTALLED_APPS = [

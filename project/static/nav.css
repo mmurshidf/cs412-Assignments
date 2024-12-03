@@ -82,3 +82,23 @@ main {
     border-radius: 10px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
+
+/* Style for Logout Button */
+form button[type="submit"] {
+    background-color: #4A90E2; /* Light blue background */
+    color: #FFFFFF; /* White text */
+    border: none; /* Remove default border */
+    border-radius: 20px; /* Rounded corners for consistency */
+    padding: 10px 20px; /* Add padding for a comfortable button size */
+    font-family: 'Roboto', sans-serif; /* Consistent font */
+    font-size: 1rem; /* Adjust font size */
+    cursor: pointer; /* Pointer cursor for interactivity */
+    transition: background-color 0.3s, transform 0.2s; /* Smooth transitions */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+form button[type="submit"]:hover {
+    background-color: #F5E6CA; /* Beige hover effect */
+    color: #4A90E2; /* Light blue text on hover */
+    transform: scale(1.05); /* Slight zoom on hover */
+}

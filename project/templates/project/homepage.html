@@ -15,7 +15,7 @@ Home - Jobify
             <th>Company</th>
             <th>Location</th>
             <th>Industry</th>
-            {% if is_logged_in %}
+            {% if user.is_authenticated %}
             <th>Status</th>
             {% endif %}
         </tr>
@@ -27,7 +27,7 @@ Home - Jobify
             <td>{{ job.company.name }}</td>
             <td>{{ job.company.location }}</td>
             <td>{{ job.company.industry }}</td>
-            {% if is_logged_in %}
+            {% if user.is_authenticated %}
             <td>{{ job.get_status_display }}</td>
             {% endif %}
         </tr>
