@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import HomePageView, JobDetailView, CreateAccountView
+from .views import HomePageView, JobDetailView, CreateAccountView, UserProfileView, UpdateProfileView
 from django.contrib.auth import views as auth_views
 
 urlpatterns = [
@@ -8,4 +8,6 @@ urlpatterns = [
     path('login/', auth_views.LoginView.as_view(template_name='project/login.html'), name='login'),
     path('logout/', auth_views.LogoutView.as_view(template_name='project/logged_out.html'), name='logout'),
     path('create_account/', CreateAccountView.as_view(), name='create_account'),
+    path('profile/', UserProfileView.as_view(), name='user_profile'),
+    path('profile/update/', UpdateProfileView.as_view(), name='update_profile'),
 ]

@@ -89,7 +89,7 @@ form button[type="submit"] {
     color: #FFFFFF; /* White text */
     border: none; /* Remove default border */
     border-radius: 20px; /* Rounded corners for consistency */
-    padding: 10px 20px; /* Add padding for a comfortable button size */
+    padding: 5px 20px; /* Add padding for a comfortable button size */
     font-family: 'Roboto', sans-serif; /* Consistent font */
     font-size: 1rem; /* Adjust font size */
     cursor: pointer; /* Pointer cursor for interactivity */
