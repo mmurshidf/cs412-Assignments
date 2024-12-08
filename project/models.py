@@ -17,8 +17,6 @@ class Account(models.Model):
     
 #Company model that represents the company by its name, industry, and location
 class Company(models.Model):
-
-    #Fields
     name = models.CharField(max_length=100)
     industry = models.CharField(max_length=100)
     location = models.CharField(max_length=100)
@@ -26,10 +24,27 @@ class Company(models.Model):
     def __str__(self):
         return self.name
 
+
+# Jobs model to represent job listings posted by companies
+class Job(models.Model):
+    company = models.ForeignKey(Company, on_delete=models.CASCADE)
+    position_title = models.CharField(max_length=100)
+    description = models.TextField()
+    location = models.CharField(max_length=100)
+    industry = models.CharField(max_length=100)
+    posted_date = models.DateField(auto_now_add=True)
+    created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name="created_jobs", default=1)  # User who created the job
+
+    def __str__(self):
+        return f"{self.position_title} at {self.company.name}"
+
+    def get_job_details_url(self):
+        """Get the URL to view the job details."""
+        return f"/project/job/{self.pk}/"
+
+
 #Job application status model
 class JobApplication(models.Model):
-
-    #Status choices
     STATUS_CHOICES = [
         ('applied', 'Applied'),
         ('interview', 'Interview'),
@@ -37,15 +52,14 @@ class JobApplication(models.Model):
         ('rejected', 'Rejected'),
     ]
 
-    #Fields and applicant status
     user = models.ForeignKey(Account, on_delete=models.CASCADE)
-    company = models.ForeignKey(Company, on_delete=models.CASCADE)
-    position_title = models.CharField(max_length=100)
+    job = models.ForeignKey(Job, on_delete=models.CASCADE, default=1)  # Link to the Job model
     application_date = models.DateField()
     status = models.CharField(max_length=20, choices=STATUS_CHOICES)
 
     def __str__(self):
-        return f"{self.position_title} at {self.company.name}"
+        return f"{self.user.username} applied for {self.job.position_title}"
+
 
 
 #Interview Model to track interviews

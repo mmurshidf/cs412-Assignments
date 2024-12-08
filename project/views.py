@@ -1,7 +1,7 @@
 from django.shortcuts import get_object_or_404, redirect
 from django.views.generic import ListView, DetailView, CreateView, UpdateView
 from django.contrib.auth.forms import UserCreationForm
-from .models import JobApplication, Account
+from .models import JobApplication, Account, Job
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django import forms
@@ -10,13 +10,13 @@ from django import forms
 
 class HomePageView(ListView):
     """View to display a list of job applications."""
-    model = JobApplication
+    model = Job  # Use the Job model to display job listings
     template_name = 'project/homepage.html'
-    context_object_name = 'job_applications'
+    context_object_name = 'jobs'  # Context name is now 'jobs'
 
     def get_queryset(self):
-        """Return all job applications."""
-        return JobApplication.objects.select_related('company')
+        """Return all jobs available to apply to."""
+        return Job.objects.all()  # Fetch all jobs available for users
 
 
 class JobDetailView(DetailView):

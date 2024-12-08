@@ -5,6 +5,6 @@
     <h2>You have been logged out</h2>
     <p>Thank you for using CareerHire!</p>
     <a href="{% url 'login' %}" class="login-again-btn">Log in again</a>
-    <a href="/" class="home-btn">Return to Home</a>
+    <a href="{% url 'homepage' %}" class="home-btn">Return to Home</a>
 </div>
 {% endblock %}

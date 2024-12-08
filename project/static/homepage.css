@@ -57,3 +57,14 @@ h2 {
     color: #4A90E2; /* Light blue text */
     margin-bottom: 20px; /* Add spacing below the title */
 }
+
+/* Job Title Link Styling */
+table tbody td a {
+    text-decoration: none; /* Remove underline from links */
+    color: #4A90E2; /* Light blue text for links */
+}
+
+table tbody td a:hover {
+    color: #FFFFFF; /* Change link color to white on hover */
+    text-decoration: underline; /* Add underline on hover */
+}

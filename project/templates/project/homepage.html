@@ -1,13 +1,15 @@
 {% extends 'project/base.html' %}
-{% load static %}
 
-{% block title %}
-Home - CareerHire
-{% endblock %}
+{% block title %}Available Jobs{% endblock %}
 
 {% block content %}
+<!-- Link the CSS -->
+{% load static %}
 <link rel="stylesheet" href="{% static 'homepage.css' %}">
-<h2>Job Applications</h2>
+
+<h2>Available Job Listings</h2>
+
+<!-- Display jobs in a table -->
 <table class="table table-striped">
     <thead>
         <tr>
@@ -15,21 +17,21 @@ Home - CareerHire
             <th>Company</th>
             <th>Location</th>
             <th>Industry</th>
-            {% if user.is_authenticated %}
-            <th>Status</th>
-            {% endif %}
+            <th>Posted On</th>
         </tr>
     </thead>
     <tbody>
-        {% for job in job_applications %}
+        {% for job in jobs %}
         <tr>
-            <td><a href="{% url 'job_detail' job.id %}">{{ job.position_title }}</a></td>
+            <td><a href="{{ job.get_job_details_url }}">{{ job.position_title }}</a></td>
             <td>{{ job.company.name }}</td>
-            <td>{{ job.company.location }}</td>
-            <td>{{ job.company.industry }}</td>
-            {% if user.is_authenticated %}
-            <td>{{ job.get_status_display }}</td>
-            {% endif %}
+            <td>{{ job.location }}</td>
+            <td>{{ job.industry }}</td>
+            <td>{{ job.posted_date }}</td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="5">No jobs available at the moment.</td>
         </tr>
         {% endfor %}
     </tbody>
