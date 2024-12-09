@@ -28,6 +28,7 @@
                 <th>Company</th>
                 <th>Status</th>
                 <th>Application Date</th>
+                <th>Action</th>
             </tr>
         </thead>
         <tbody>
@@ -37,6 +38,12 @@
                     <td>{{ application.job.company.name }}</td>
                     <td>{{ application.get_status_display }}</td>
                     <td>{{ application.application_date }}</td>
+                    <td>
+                        <form method="post" action="{% url 'withdraw_application' job_id=application.job.pk %}">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-danger">Withdraw</button>
+                        </form>
+                    </td>
                 </tr>
             {% endfor %}
         </tbody>
