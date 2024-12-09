@@ -5,10 +5,10 @@
 {% block content %}
 <h2>Update Your Profile</h2>
 
-<form method="post">
+<form method="post" enctype="multipart/form-data" action="{% url 'update_profile' %}">
     {% csrf_token %}
     {{ form.as_p }}
-    <button type="submit">Save Changes</button>
+    <button type="submit">Update Profile</button>
 </form>
 
 {% endblock %}

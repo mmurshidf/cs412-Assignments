@@ -9,11 +9,14 @@ from django.contrib.auth.models import User
 
 # User model that represents a user by giving them a username, email, and profile, first name, and last name
 class Account(models.Model):
-    #Fields
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="accounts", default=1)
     username = models.CharField(max_length=50, unique=True)
     email = models.EmailField(unique=True)
     profile = models.TextField(blank=True, null=True)
+    resume = models.FileField(upload_to='resumes/', blank=True, null=True)
+
+    def __str__(self):
+        return self.username
     
 #Company model that represents the company by its name, industry, and location
 class Company(models.Model):

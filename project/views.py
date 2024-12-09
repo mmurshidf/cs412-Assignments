@@ -1,5 +1,5 @@
 from django.shortcuts import get_object_or_404, redirect
-from django.views.generic import ListView, DetailView, CreateView, UpdateView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, View
 from django.contrib.auth.forms import UserCreationForm
 from .models import JobApplication, Account, Job
 from django.urls import reverse_lazy
@@ -41,7 +41,7 @@ class CreateAccountView(CreateView):
         return redirect(self.success_url)
 
 class UserProfileView(LoginRequiredMixin, DetailView):
-    """View to display the profile page with jobs applied to and jobs created by the user."""
+    """View to display the profile page with jobs applied to and created by the user."""
     model = Account
     template_name = 'project/user_profile.html'
     context_object_name = 'account'
@@ -55,17 +55,22 @@ class UserProfileView(LoginRequiredMixin, DetailView):
         context = super().get_context_data(**kwargs)
         user_account = self.get_object()
 
+        # Jobs applied to
         context['applied_jobs'] = JobApplication.objects.filter(user=user_account)
 
+        # Jobs created by the user
         context['created_jobs'] = Job.objects.filter(created_by=self.request.user)
 
+        # Provide the email and resume update form to the template
+        context['email_form'] = UpdateProfileForm(instance=user_account)
+        
         return context
 
 class UpdateProfileForm(forms.ModelForm):
-    """Form to update the user's email."""
+    """Form to update the user's email and resume."""
     class Meta:
         model = Account
-        fields = ['email']
+        fields = ['email', 'resume']
 
 class UpdateProfileView(LoginRequiredMixin, UpdateView):
     model = Account
@@ -79,4 +84,21 @@ class UpdateProfileView(LoginRequiredMixin, UpdateView):
     def get_success_url(self):
         """Redirect to the user's profile page after updating."""
         return reverse_lazy('user_profile')
+
+class ApplyToJobView(LoginRequiredMixin, View):
+    """View to handle job applications."""
+    
+    def post(self, request, job_id):
+        # Get the job object
+        job = get_object_or_404(Job, pk=job_id)
+        
+        # Create a job application for the logged-in user
+        job_application = JobApplication.objects.create(
+            user=request.user.account,
+            job=job,
+            status='applied',
+            application_date=request.POST.get('application_date')
+        )
+        
+        return redirect('user_profile')
 
