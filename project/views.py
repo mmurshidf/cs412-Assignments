@@ -3,7 +3,7 @@ from django.views.generic import ListView, DetailView, CreateView, UpdateView, V
 from .models import JobApplication, Account, Job, Company
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
-from.forms import UpdateProfileForm, JobCreationForm, CreateAccountForm, InterviewForm, CompanyForm
+from.forms import UpdateProfileForm, JobCreationForm, CreateAccountForm, InterviewForm, CompanyForm, ReviewForm, Review
 from django.utils import timezone
 from django.contrib import messages
 
@@ -244,3 +244,37 @@ class DeleteJobView(LoginRequiredMixin, DeleteView):
         """Override to ensure that only the job created by the current user can be deleted."""
         job = get_object_or_404(Job, pk=self.kwargs['pk'])
         return job
+
+class CompanyDetailView(DetailView):
+    model = Company
+    template_name = 'project/company_detail.html'
+    context_object_name = 'company'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        
+        # Get reviews for the company
+        context['reviews'] = Review.objects.filter(company=self.object)
+        
+        # If the user is logged in, add the review form to the context
+        if self.request.user.is_authenticated:
+            context['review_form'] = ReviewForm()
+
+        return context
+
+    def post(self, request, *args, **kwargs):
+        company = self.get_object()  # Get the company being viewed
+        form = ReviewForm(request.POST)
+
+        if form.is_valid():
+            # Create a review for the company
+            review = form.save(commit=False)
+            review.user = request.user  # Set the logged-in user as the review author
+            review.company = company  # Link the review to the company
+            review.save()
+
+            # Redirect to the same page (refresh the page to show the new review)
+            return redirect('company_detail', pk=company.pk)
+
+        # If the form is not valid, render the page again with the form errors
+        return self.render_to_response({'form': form})

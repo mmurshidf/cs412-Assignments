@@ -72,3 +72,16 @@ class Interview(models.Model):
 
     def __str__(self):
         return f"Interview for {self.job_application.position_title} on {self.interview_date}"
+
+class Review(models.Model):
+    company = models.ForeignKey(Company, on_delete=models.CASCADE, related_name='reviews')
+    user = models.ForeignKey(User, on_delete=models.CASCADE)  # Who wrote the review
+    rating = models.IntegerField(choices=[(1, '1 Star'), (2, '2 Stars'), (3, '3 Stars'), (4, '4 Stars'), (5, '5 Stars')])
+    review_text = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"Review by {self.user.username} for {self.company.name} - {self.rating} stars"
+
+    class Meta:
+        ordering = ['-created_at']  # Order reviews by creation time (most recent first)

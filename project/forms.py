@@ -1,5 +1,5 @@
 from django import forms
-from .models import Job, Company, Account, Interview
+from .models import Job, Company, Account, Interview, Review
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 
@@ -37,3 +37,11 @@ class CompanyForm(forms.ModelForm):
     class Meta:
         model = Company
         fields = ['name', 'industry', 'location']
+
+class ReviewForm(forms.ModelForm):
+    class Meta:
+        model = Review
+        fields = ['rating', 'review_text']
+        widgets = {
+            'review_text': forms.Textarea(attrs={'rows': 4, 'placeholder': 'Write your review here...'}),
+        }
