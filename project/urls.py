@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import HomePageView, JobDetailView, CreateAccountView, UserProfileView, UpdateProfileView, ApplyToJobView
+from .views import HomePageView, JobDetailView, CreateAccountView, UserProfileView, UpdateProfileView, ApplyToJobView, CreateJobView, JobApplicationsForJobView
 from django.contrib.auth import views as auth_views
 
 urlpatterns = [
@@ -11,4 +11,6 @@ urlpatterns = [
     path('profile/', UserProfileView.as_view(), name='user_profile'),
     path('profile/update/', UpdateProfileView.as_view(), name='update_profile'),
     path('job/<int:job_id>/apply/', ApplyToJobView.as_view(), name='apply_to_job'),
+    path('create_job/', CreateJobView.as_view(), name='create_job'),
+    path('job/<int:pk>/applications/', JobApplicationsForJobView.as_view(), name='job_applications_for_job'),
 ]

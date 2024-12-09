@@ -4,19 +4,20 @@ from django.contrib.auth.forms import UserCreationForm
 from .models import JobApplication, Account, Job
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django import forms
+from.forms import UpdateProfileForm, JobCreationForm
+from django.utils import timezone
 
 # Create your views here.
 
 class HomePageView(ListView):
     """View to display a list of job applications."""
-    model = Job  # Use the Job model to display job listings
+    model = Job
     template_name = 'project/homepage.html'
-    context_object_name = 'jobs'  # Context name is now 'jobs'
+    context_object_name = 'jobs'
 
     def get_queryset(self):
-        """Return all jobs available to apply to."""
-        return Job.objects.all()  # Fetch all jobs available for users
+        """Return all jobs created by users."""
+        return Job.objects.all()
 
 class JobDetailView(DetailView):
     """View to display details of a specific job application."""
@@ -66,12 +67,6 @@ class UserProfileView(LoginRequiredMixin, DetailView):
         
         return context
 
-class UpdateProfileForm(forms.ModelForm):
-    """Form to update the user's email and resume."""
-    class Meta:
-        model = Account
-        fields = ['email', 'resume']
-
 class UpdateProfileView(LoginRequiredMixin, UpdateView):
     model = Account
     form_class = UpdateProfileForm
@@ -86,19 +81,57 @@ class UpdateProfileView(LoginRequiredMixin, UpdateView):
         return reverse_lazy('user_profile')
 
 class ApplyToJobView(LoginRequiredMixin, View):
-    """View to handle job applications."""
+    """Handle the job application process."""
     
     def post(self, request, job_id):
-        # Get the job object
+        # Get the job instance
         job = get_object_or_404(Job, pk=job_id)
         
-        # Create a job application for the logged-in user
-        job_application = JobApplication.objects.create(
-            user=request.user.account,
+        # Create a new job application for the logged-in user
+        user_account = get_object_or_404(Account, user=request.user)
+        
+        # Check if the user has already applied for this job (optional)
+        if JobApplication.objects.filter(user=user_account, job=job).exists():
+            return redirect('job_detail', pk=job_id)  # Or render a message saying "Already Applied"
+        
+        job_application = JobApplication(
+            user=user_account,
             job=job,
+            application_date=timezone.now(),
             status='applied',
-            application_date=request.POST.get('application_date')
         )
+        job_application.save()
         
         return redirect('user_profile')
+
+class CreateJobView(LoginRequiredMixin, CreateView):
+    model = Job
+    form_class = JobCreationForm
+    template_name = 'project/create_job.html'
+    
+    def form_valid(self, form):
+        form.instance.created_by = self.request.user  # Associate the job with the logged-in user
+        return super().form_valid(form)
+    
+    def get_success_url(self):
+        return reverse_lazy('user_profile')
+    
+class JobApplicationsForJobView(DetailView):
+    """View to display all applications for a specific job."""
+    model = Job
+    template_name = 'project/job_applications_for_job.html'
+    context_object_name = 'job'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        job = self.get_object()
+
+        # Check if the user is the job creator
+        if self.request.user == job.created_by:
+            job_applications = JobApplication.objects.filter(job=job)
+            context['job_applications'] = job_applications
+        else:
+            # Redirect or show a message if the user is not the job creator
+            return redirect('homepage')  # Or you can show a "not authorized" message
+        return context
 

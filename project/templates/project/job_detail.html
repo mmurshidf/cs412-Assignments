@@ -5,22 +5,24 @@
 {% endblock %}
 
 {% block content %}
-{% load static %}
-<link rel="stylesheet" href="{% static 'job_detail.css' %}">
-
+<h2>{{ job.position_title }}</h2>
 <p><strong>Company:</strong> {{ job.company.name }}</p>
 <p><strong>Industry:</strong> {{ job.company.industry }}</p>
 <p><strong>Location:</strong> {{ job.location }}</p>
 <p><strong>Description:</strong> {{ job.description }}</p>
 <p><strong>Posted On:</strong> {{ job.posted_date }}</p>
 
-<!-- Apply Button -->
 {% if user.is_authenticated %}
     <form method="post" action="{% url 'apply_to_job' job.pk %}">
         {% csrf_token %}
-        <button type="submit" class="apply-btn">Apply Now</button>
+        <button type="submit">Apply Now</button>
     </form>
+    
+    <!-- Only show the applications link if the user is the job creator -->
+    {% if user == job.created_by %}
+        <a href="{% url 'job_applications_for_job' job.pk %}" class="btn btn-secondary">View Applications</a>
+    {% endif %}
 {% else %}
-    <a href="{% url 'login' %}" class="apply-btn">Login to Apply</a>
+    <a href="{% url 'login' %}">Login to Apply</a>
 {% endif %}
 {% endblock %}
