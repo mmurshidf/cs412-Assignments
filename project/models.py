@@ -7,13 +7,12 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 
-# Account model that represents a user by giving them a username, email, profile, first name, and last name
+# Account model that represents a user by giving them a username, email, first name, and last name
 class Account(models.Model):
     """User model that stores the user's account details."""
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="accounts", default=1)  # Link to the built-in User model
     username = models.CharField(max_length=50, unique=True)  # Unique username for the user
     email = models.EmailField(unique=True)  # Unique email address for the user
-    profile = models.TextField(blank=True, null=True)  # Optional profile information about the user
     resume = models.FileField(upload_to='resumes/', blank=True, null=True)  # Optional field for uploading a resume
 
     def __str__(self):
