@@ -16,6 +16,7 @@
     <header>
         <h1>CareerHire</h1>
         <a href="{% url 'homepage' %}" class="home-btn">Home</a>
+        <a href="{% url 'company_list' %}" class="nav-link">Companies</a>
         {% if user.is_authenticated %}
             <a href="{% url 'user_profile' %}" class="btn">Profile</a>
             <form method="post" action="{% url 'logout' %}" style="display: inline;">

@@ -1,9 +1,9 @@
 from django.shortcuts import get_object_or_404, redirect,render
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, View
-from .models import JobApplication, Account, Job
+from .models import JobApplication, Account, Job, Company
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
-from.forms import UpdateProfileForm, JobCreationForm, CreateAccountForm, InterviewForm
+from.forms import UpdateProfileForm, JobCreationForm, CreateAccountForm, InterviewForm, CompanyForm
 from django.utils import timezone
 from django.contrib import messages
 
@@ -188,17 +188,48 @@ class ScheduleInterviewView(View):
 
         return redirect('homepage')
 
+
 class WithdrawApplicationView(View):
-    def post(self, request, job_id):
-        # Get the job the user is withdrawing from
-        job = get_object_or_404(Job, pk=job_id)
+    def post(self, request, pk):
+        # Get the JobApplication using the pk
+        application = get_object_or_404(JobApplication, pk=pk)
         
-        # Get the user's job application for this job
-        user_account = get_object_or_404(Account, user=request.user)
-        job_application = get_object_or_404(JobApplication, user=user_account, job=job)
-
         # Delete the application
-        job_application.delete()
+        application.delete()
 
-        # Redirect back to the user's profile page
+        # Redirect to the user's profile page after deletion
         return redirect('user_profile')
+
+class CompanyListView(ListView):
+    model = Company
+    template_name = 'project/company_list.html'  # Template for listing companies
+    context_object_name = 'companies'
+
+class CreateCompanyView(LoginRequiredMixin, CreateView):
+    model = Company
+    form_class = CompanyForm
+    template_name = 'project/create_company.html'
+    success_url = reverse_lazy('company_list')
+
+    def form_valid(self, form):
+        return super().form_valid(form)
+
+class OfferOrRejectApplicationView(LoginRequiredMixin, View):
+    """View to allow job creator to offer or reject an applicant."""
+    
+    def post(self, request, application_id, action):
+
+        application = get_object_or_404(JobApplication, pk=application_id)
+        
+
+        if application.job.created_by != request.user:
+            return redirect('homepage')  
+        
+
+        if action == 'offer':
+            application.status = 'offer'
+        elif action == 'reject':
+            application.status = 'rejected'
+        
+        application.save()
+        return redirect('job_applications_for_job', job_id=application.job.id)

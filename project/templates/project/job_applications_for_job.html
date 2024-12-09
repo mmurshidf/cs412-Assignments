@@ -33,7 +33,15 @@
                     <td>{{ application.application_date }}</td>
                     <td>
                         {% if user == job.created_by and application.status == 'applied' %}
-                            <a href="{% url 'schedule_interview' application.id %}" class="btn btn-secondary">Schedule Interview</a>
+                            <!-- Apply offer or reject buttons -->
+                            <form method="post" action="{% url 'offer_or_reject_application' application.id 'offer' %}">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-success">Offer</button>
+                            </form>
+                            <form method="post" action="{% url 'offer_or_reject_application' application.id 'reject' %}">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-danger">Reject</button>
+                            </form>
                         {% endif %}
                     </td>
                 </tr>

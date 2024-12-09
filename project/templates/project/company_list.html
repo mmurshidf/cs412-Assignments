@@ -1,0 +1,38 @@
+{% extends 'project/base.html' %}
+
+{% block title %}Companies{% endblock %}
+
+{% block content %}
+<h2>List of Companies</h2>
+
+{% if user.is_authenticated %}
+    <!-- Button for logged-in users to create a new company -->
+    <a href="{% url 'create_company' %}" class="btn btn-primary">Add a New Company</a>
+{% else %}
+    <!-- Button for non-logged-in users to log in -->
+    <a href="{% url 'login' %}" class="btn btn-secondary">Log in to Add Companies</a>
+{% endif %}
+
+{% if companies %}
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Company Name</th>
+                <th>Industry</th>
+                <th>Location</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for company in companies %}
+                <tr>
+                    <td>{{ company.name }}</td>
+                    <td>{{ company.industry }}</td>
+                    <td>{{ company.location }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+    <p>No companies available.</p>
+{% endif %}
+{% endblock %}

@@ -32,3 +32,8 @@ class InterviewForm(forms.ModelForm):
     class Meta:
         model = Interview
         fields = ['interview_date', 'interviewer_name', 'feedback']
+
+class CompanyForm(forms.ModelForm):
+    class Meta:
+        model = Company
+        fields = ['name', 'industry', 'location']

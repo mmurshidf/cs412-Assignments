@@ -28,7 +28,8 @@
                 <th>Company</th>
                 <th>Status</th>
                 <th>Application Date</th>
-                <th>Action</th>
+                <th>Interview Details</th> <!-- New Column for Interview Details -->
+                <th>Actions</th> <!-- Column for Withdraw -->
             </tr>
         </thead>
         <tbody>
@@ -39,10 +40,24 @@
                     <td>{{ application.get_status_display }}</td>
                     <td>{{ application.application_date }}</td>
                     <td>
-                        <form method="post" action="{% url 'withdraw_application' job_id=application.job.pk %}">
-                            {% csrf_token %}
-                            <button type="submit" class="btn btn-danger">Withdraw</button>
-                        </form>
+                        {% if application.interviews.all %}
+                            <ul>
+                                {% for interview in application.interviews.all %}
+                                    <li>{{ interview.interview_date }} - {{ interview.feedback }}</li>
+                                {% endfor %}
+                            </ul>
+                        {% else %}
+                            No interviews scheduled
+                        {% endif %}
+                    </td>
+                    <td>
+                        <!-- Withdraw Button (Delete Application) -->
+                        {% if application.status != 'rejected' and application.status != 'offer' %}
+                            <form method="post" action="{% url 'withdraw_application' application.pk %}">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-danger">Withdraw</button>
+                            </form>
+                        {% endif %}
                     </td>
                 </tr>
             {% endfor %}
@@ -62,7 +77,7 @@
                 <th>Location</th>
                 <th>Industry</th>
                 <th>Posted On</th>
-                <th>View Applications</th> <!-- Add this column -->
+                <th>View Applications</th>
             </tr>
         </thead>
         <tbody>
