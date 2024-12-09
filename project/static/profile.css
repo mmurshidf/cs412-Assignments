@@ -1,7 +1,64 @@
-/* Profile Page Styling */
-.profile-table {
-    width: 80%;
-    margin: 20px auto;
+/* General Styling */
+body {
+    font-family: 'Roboto', sans-serif;
+    color: #4A90E2;
+    background-color: #F0F0F0;
+}
+
+/* Profile Header Styling */
+h2 {
+    text-align: center;
+    color: #4A90E2;
+    font-size: 2rem;
+    margin-bottom: 10px;
+}
+
+h3 {
+    color: #4A90E2;
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+}
+
+/* Resume Link */
+a {
+    color: #4A90E2;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Update Profile and Create Job Button Styling */
+#update-profile-btn, #create-job-btn {
+    background-color: #4A90E2;
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    font-size: 1rem;
+    border-radius: 50px;
+    cursor: pointer;
+    text-align: center;
+    display: inline-block;
+    text-decoration: none;
+    margin: 10px 5px;
+    width: auto;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+#update-profile-btn:hover, #create-job-btn:hover {
+    background-color: #357ABD;
+}
+
+#update-profile-btn:focus, #create-job-btn:focus {
+    outline: none;
+    box-shadow: 0 0 5px rgba(72, 146, 228, 0.6);
+}
+
+/* Table Styling */
+table {
+    width: 100%;
+    margin-top: 20px;
     border-collapse: collapse;
     background-color: #FDFBF3;
     font-family: 'Roboto', sans-serif;
@@ -10,29 +67,74 @@
     border: 1px solid #BFD7EA;
 }
 
-.profile-table thead {
+table thead {
     background-color: #BFD7EA;
     color: white;
 }
 
-.profile-table th,
-.profile-table td {
+table thead th {
     padding: 15px;
+    font-size: 1.1rem;
+    text-align: left;
+    border: 1px solid #F5E6CA;
+}
+
+table tbody tr:nth-child(even) {
+    background-color: #F5E6CA;
+}
+
+table tbody tr:nth-child(odd) {
+    background-color: white;
+}
+
+table tbody tr:hover {
+    background-color: #BFD7EA;
+    color: white;
+}
+
+table tbody td {
+    padding: 10px;
+    font-size: 1rem;
     text-align: left;
     border: 1px solid #BFD7EA;
 }
 
-.profile-table tr:hover {
-    background-color: #BFD7EA;
-    color: white;
-}
-
-h3 {
-    margin-top: 30px;
+table tbody td a {
     color: #4A90E2;
-    font-size: 1.5rem;
+    text-decoration: none;
 }
 
+table tbody td a:hover {
+    color: white;
+    text-decoration: underline;
+}
+
+/* Empty State Text */
 p {
-    font-size: 1.2rem;
+    text-align: center;
+    color: #4A90E2;
+    font-size: 1rem;
+    margin: 20px 0;
+}
+
+/* Button Styling for Update Profile, Create Job */
+#update-profile-btn, #create-job-btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #4A90E2;
+    color: white;
+    text-decoration: none;
+    border-radius: 50px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin: 20px 5px;
+    font-size: 1rem;
+}
+
+#update-profile-btn:hover, #create-job-btn:hover {
+    background-color: #357ABD;
+}
+
+#update-profile-btn:focus, #create-job-btn:focus {
+    outline: none;
+    box-shadow: 0 0 5px rgba(72, 146, 228, 0.6);
 }

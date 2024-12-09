@@ -1,3 +1,7 @@
+# File: apps.py
+# Author: Mohammed Murshid (murshidm@bu.edu), 12/9/2024
+# Description: App
+
 from django.apps import AppConfig
 
 

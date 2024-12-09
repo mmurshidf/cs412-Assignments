@@ -1,17 +1,20 @@
 {% extends 'project/base.html' %}
 
-{% block title %}Available Jobs{% endblock %}
+{% block title %}CareerHire{% endblock %}
 
 {% block content %}
 <!-- Link the CSS -->
 {% load static %}
 <link rel="stylesheet" href="{% static 'homepage.css' %}">
 
+<h1>Welcome to CareerHire</h1>
+<p>Find the best job opportunities that match your skills and interests.</p>
+
 <h2>Available Job Listings</h2>
 
 <!-- Search Form -->
-<form method="get" action="{% url 'homepage' %}">
-    <input type="text" name="search" placeholder="Search for jobs...">
+<form method="GET" action="{% url 'homepage' %}">
+    <input type="text" name="search" placeholder="Position, industry, or company">
     <button type="submit">Search</button>
 </form>
 
@@ -19,7 +22,7 @@
 <table class="table table-striped">
     <thead>
         <tr>
-            <th>Position</th>
+            <th>Cick Position</th>
             <th>Company</th>
             <th>Location</th>
             <th>Industry</th>

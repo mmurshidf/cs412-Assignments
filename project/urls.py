@@ -1,3 +1,7 @@
+# File: urls.py
+# Author: Mohammed Murshid (murshidm@bu.edu), 12/9/2024
+# Description: Urls file for pathing
+
 from django.urls import path
 from .views import HomePageView, JobDetailView, CreateAccountView, UserProfileView, UpdateProfileView, CompanyDetailView, ApplyToJobView, CreateJobView, JobApplicationsForJobView, ScheduleInterviewView, WithdrawApplicationView, CompanyListView, CreateCompanyView, OfferOrRejectApplicationView, DeleteJobView
 from django.contrib.auth import views as auth_views

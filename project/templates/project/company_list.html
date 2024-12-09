@@ -3,6 +3,8 @@
 {% block title %}Companies{% endblock %}
 
 {% block content %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'profile.css' %}">
 <h2>List of Companies</h2>
 
 {% if user.is_authenticated %}
@@ -17,7 +19,7 @@
     <table class="table table-striped">
         <thead>
             <tr>
-                <th>Company Name</th>
+                <th>Click Company Name</th>
                 <th>Industry</th>
                 <th>Location</th>
             </tr>

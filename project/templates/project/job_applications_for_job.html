@@ -3,6 +3,8 @@
 {% block title %}Applications for {{ job.position_title }}{% endblock %}
 
 {% block content %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'profile.css' %}">
 <h2>Applications for {{ job.position_title }} at {{ job.company.name }}</h2>
 
 {% if job_applications %}
@@ -32,8 +34,9 @@
                     <td>{{ application.get_status_display }}</td>
                     <td>{{ application.application_date }}</td>
                     <td>
-                        {% if user == job.created_by and application.status == 'applied' %}
+                        {% if user == job.created_by %}
                             <!-- Apply offer or reject buttons -->
+                            <a href="{% url 'schedule_interview' application.pk %}" class="btn btn-secondary">Schedule Interview</a>
                             <form method="post" action="{% url 'offer_or_reject_application' application.id 'offer' %}">
                                 {% csrf_token %}
                                 <button type="submit" class="btn btn-success">Offer</button>

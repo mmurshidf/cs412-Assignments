@@ -3,6 +3,8 @@
 {% block title %}{{ company.name }} - Company Details{% endblock %}
 
 {% block content %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'profile.css' %}">
 <h2>{{ company.name }}</h2>
 <p><strong>Industry:</strong> {{ company.industry }}</p>
 <p><strong>Location:</strong> {{ company.location }}</p>

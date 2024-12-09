@@ -1,70 +1,103 @@
-/* homepage.css - Styling for Homepage Table */
-
-/* General Table Styling */
 table {
-    width: 80%; /* Center the table by restricting its width */
-    margin: 20px auto; /* Center alignment */
-    border-collapse: collapse; /* Remove extra spacing between borders */
-    background-color: #FDFBF3; /* Light beige background */
-    font-family: 'Roboto', sans-serif; /* Consistent font with navbar */
-    color: #4A90E2; /* Light blue text */
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
-    border: 1px solid #BFD7EA; /* Light blue border */
+    width: 80%;
+    margin: 20px auto;
+    border-collapse: collapse;
+    background-color: #FDFBF3;
+    font-family: 'Roboto', sans-serif;
+    color: #4A90E2;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    border: 1px solid #BFD7EA;
 }
 
-/* Header Row Styling */
 table thead {
-    background-color: #BFD7EA; /* Light blue background for headers */
-    color: #FFFFFF; /* White text for contrast */
+    background-color: #BFD7EA;
+    color: #FFFFFF;
 }
 
 table thead th {
-    padding: 15px; /* Add spacing to header cells */
-    font-size: 1.1rem; /* Slightly larger font for headers */
-    text-align: left; /* Align text to the left */
-    border: 1px solid #F5E6CA; /* Beige border for header cells */
+    padding: 15px;
+    font-size: 1.1rem;
+    text-align: left;
+    border: 1px solid #F5E6CA;
 }
 
-/* Table Body Styling */
 table tbody tr {
-    transition: background-color 0.3s; /* Smooth hover effect */
+    transition: background-color 0.3s;
 }
 
 table tbody tr:nth-child(even) {
-    background-color: #F5E6CA; /* Beige background for alternate rows */
+    background-color: #F5E6CA;
 }
 
 table tbody tr:nth-child(odd) {
-    background-color: #FFFFFF; /* White background for other rows */
+    background-color: #FFFFFF;
 }
 
 table tbody tr:hover {
-    background-color: #BFD7EA; /* Light blue hover effect */
-    color: #FFFFFF; /* White text on hover */
+    background-color: #BFD7EA;
+    color: #FFFFFF;
 }
 
 table tbody td {
-    padding: 10px; /* Add spacing to data cells */
-    font-size: 1rem; /* Font size for readability */
-    text-align: left; /* Align text to the left */
-    border: 1px solid #BFD7EA; /* Light blue border for cells */
+    padding: 10px;
+    font-size: 1rem;
+    text-align: left;
+    border: 1px solid #BFD7EA;
 }
 
-/* Center the Table Title */
 h2 {
     text-align: center;
-    font-family: 'Georgia', serif; /* Consistent font with navbar title */
-    color: #4A90E2; /* Light blue text */
-    margin-bottom: 20px; /* Add spacing below the title */
+    font-family: 'Georgia', serif;
+    color: #4A90E2;
+    margin-bottom: 20px;
 }
 
-/* Job Title Link Styling */
 table tbody td a {
-    text-decoration: none; /* Remove underline from links */
-    color: #4A90E2; /* Light blue text for links */
+    text-decoration: none;
+    color: #4A90E2;
 }
 
 table tbody td a:hover {
-    color: #FFFFFF; /* Change link color to white on hover */
-    text-decoration: underline; /* Add underline on hover */
+    color: #FFFFFF;
+    text-decoration: underline;
+}
+
+h1 {
+    text-align: center;
+    font-family: 'Georgia', serif;
+    color: #4A90E2;
+    margin-top: 100px;
+    margin-bottom: 30px;
+}
+
+p {
+    text-align: center;
+    font-size: 1.1rem;
+    color: #4A90E2;
+    margin-bottom: 160px;
+}
+
+form {
+    text-align: right;
+    margin-bottom: 20px;
+}
+
+input[type="text"] {
+    padding: 10px;
+    font-size: 1rem;
+    width: 250px;
+    margin-right: 10px;
+}
+
+button {
+    padding: 10px 20px;
+    font-size: 1rem;
+    background-color: #4A90E2;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #357ABD;
 }

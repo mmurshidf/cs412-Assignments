@@ -1,3 +1,7 @@
+# File: views.py
+# Author: Mohammed Murshid (murshidm@bu.edu), 12/9/2024
+# Description: Creates views for site
+
 from django.shortcuts import get_object_or_404, redirect,render
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, View, DeleteView
 from .models import JobApplication, Account, Job, Company
@@ -6,6 +10,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from.forms import UpdateProfileForm, JobCreationForm, CreateAccountForm, InterviewForm, CompanyForm, ReviewForm, Review
 from django.utils import timezone
 from django.contrib import messages
+from django.db.models import Q
 
 
 # Create your views here.
@@ -17,11 +22,19 @@ class HomePageView(ListView):
     context_object_name = 'jobs'
 
     def get_queryset(self):
-        search_query = self.request.GET.get('search', '')  # Get the search query from the request
+        """Return all jobs with flexible search options (by position, industry, or company)."""
+        queryset = Job.objects.all()
+
+        search_query = self.request.GET.get('search', '')
         if search_query:
-            # Filter jobs by position title that contains the search term
-            return Job.objects.filter(position_title__icontains=search_query)
-        return Job.objects.all()
+            # Apply filter based on position, industry, or company
+            queryset = queryset.filter(
+                Q(position_title__icontains=search_query) | 
+                Q(company__industry__icontains=search_query) | 
+                Q(company__name__icontains=search_query)
+            )
+
+        return queryset
     
 class JobDetailView(DetailView):
     """View to display details of a specific job application."""
@@ -235,7 +248,7 @@ class OfferOrRejectApplicationView(LoginRequiredMixin, View):
             application.status = 'rejected'
         
         application.save()
-        return redirect('job_applications_for_job', job_id=application.job.id)
+        return redirect('job_applications_for_job', pk=application.job.pk)
 
 class DeleteJobView(LoginRequiredMixin, DeleteView):
     model = Job
