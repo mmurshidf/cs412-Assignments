@@ -1,11 +1,12 @@
-from django.shortcuts import get_object_or_404, redirect
+from django.shortcuts import get_object_or_404, redirect,render
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, View
-from django.contrib.auth.forms import UserCreationForm
 from .models import JobApplication, Account, Job
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
-from.forms import UpdateProfileForm, JobCreationForm
+from.forms import UpdateProfileForm, JobCreationForm, CreateAccountForm, InterviewForm
 from django.utils import timezone
+from django.contrib import messages
+
 
 # Create your views here.
 
@@ -25,20 +26,39 @@ class JobDetailView(DetailView):
     template_name = 'project/job_detail.html'
     context_object_name = 'job'
 
-    def get_queryset(self):
-        """Return the specific job based on its ID (pk)."""
-        return Job.objects.select_related('company')
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        job = self.get_object()  # Get the current job
+        
+        # Check if the user has already applied for this job
+        if self.request.user.is_authenticated:
+            user_account = get_object_or_404(Account, user=self.request.user)
+            context['has_applied'] = JobApplication.objects.filter(
+                user=user_account, job=job
+            ).exists()
+
+        return context
 
 class CreateAccountView(CreateView):
     template_name = 'project/create_account.html'
-    form_class = UserCreationForm
-    success_url = reverse_lazy('login')
+    form_class = CreateAccountForm
+    success_url = reverse_lazy('login')  # Redirect to login page after successful account creation
 
     def form_valid(self, form):
+        # Save the user using the form data
         user = form.save()
-        account = Account.objects.create(user=user, username=user.username, email=user.email)
+
+        # Check if the email already exists in the Account model
+        email = form.cleaned_data.get('email')
+        if Account.objects.filter(email=email).exists():
+            messages.error(self.request, "This email is already registered. Please use a different one.")
+            return render(self.request, self.template_name, {'form': form})
+
+        # Create the Account model instance for the user
+        account = Account.objects.create(user=user, username=user.username, email=email)
         account.save()
 
+        messages.success(self.request, "Account created successfully! You can now log in.")
         return redirect(self.success_url)
 
 class UserProfileView(LoginRequiredMixin, DetailView):
@@ -132,6 +152,53 @@ class JobApplicationsForJobView(DetailView):
             context['job_applications'] = job_applications
         else:
             # Redirect or show a message if the user is not the job creator
-            return redirect('homepage')  # Or you can show a "not authorized" message
+            return redirect('homepage')
         return context
 
+class ScheduleInterviewView(View):
+    def get(self, request, job_application_id):
+        # Get the job application the interview is for
+        job_application = get_object_or_404(JobApplication, pk=job_application_id)
+
+        # Only allow the creator of the job to schedule an interview
+        if job_application.job.created_by == request.user:
+            form = InterviewForm()
+            return render(request, 'project/schedule_interview.html', {'form': form, 'job_application': job_application})
+
+        # If the user is not the creator, return error or redirect
+        return redirect('homepage')
+
+    def post(self, request, job_application_id):
+        job_application = get_object_or_404(JobApplication, pk=job_application_id)
+
+        if job_application.job.created_by == request.user:
+            form = InterviewForm(request.POST)
+            if form.is_valid():
+                # Save the interview form with the job_application set
+                interview = form.save(commit=False)
+                interview.job_application = job_application  # Associate with the job application
+                interview.save()
+
+                # Update the status of the job application to "interview"
+                job_application.status = 'interview'
+                job_application.save()
+
+                # Redirect to the job detail or interview page
+                return redirect('job_detail', pk=job_application.job.pk)
+
+        return redirect('homepage')
+
+class WithdrawApplicationView(View):
+    def post(self, request, job_id):
+        # Get the job the user is withdrawing from
+        job = get_object_or_404(Job, pk=job_id)
+        
+        # Get the user's job application for this job
+        user_account = get_object_or_404(Account, user=request.user)
+        job_application = get_object_or_404(JobApplication, user=user_account, job=job)
+
+        # Delete the application
+        job_application.delete()
+
+        # Redirect back to the user's profile page
+        return redirect('user_profile')

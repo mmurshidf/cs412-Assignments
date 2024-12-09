@@ -1,0 +1,23 @@
+{% extends 'project/base.html' %}
+
+{% block title %}Job Application Details{% endblock %}
+
+{% block content %}
+<h2>Job Application Details</h2>
+
+<p><strong>Position:</strong> {{ job_application.job.position_title }}</p>
+<p><strong>Company:</strong> {{ job_application.job.company.name }}</p>
+<p><strong>Status:</strong> {{ job_application.get_status_display }}</p>
+<p><strong>Application Date:</strong> {{ job_application.application_date }}</p>
+
+{% if interview %}
+    <h3>Interview Details</h3>
+    <p><strong>Interview Date:</strong> {{ interview.interview_date }}</p>
+    <p><strong>Interviewer:</strong> {{ interview.interviewer_name }}</p>
+    <p><strong>Join Instructions:</strong> {{ interview.feedback }}</p>
+{% else %}
+    <p>No interview scheduled yet.</p>
+{% endif %}
+
+<a href="{% url 'user_profile' %}" class="btn btn-primary">Back to Profile</a>
+{% endblock %}

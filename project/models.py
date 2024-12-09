@@ -59,17 +59,14 @@ class JobApplication(models.Model):
     job = models.ForeignKey(Job, on_delete=models.CASCADE, default=1)
     application_date = models.DateField()
     status = models.CharField(max_length=20, choices=STATUS_CHOICES)
+    interview = models.OneToOneField('Interview', on_delete=models.CASCADE, blank=True, null=True)
 
     def __str__(self):
         return f"{self.user.username} applied for {self.job.position_title}"
 
-
-
 #Interview Model to track interviews
 class Interview(models.Model):
-
-    #Fields
-    job_application = models.ForeignKey(JobApplication, on_delete=models.CASCADE)
+    job_application = models.ForeignKey(JobApplication, on_delete=models.CASCADE, related_name='interviews')
     interview_date = models.DateField()
     interviewer_name = models.CharField(max_length=100)
     feedback = models.TextField(blank=True, null=True)

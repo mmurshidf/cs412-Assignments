@@ -1,0 +1,14 @@
+{% extends 'project/base.html' %}
+
+{% block title %}Schedule Interview{% endblock %}
+
+{% block content %}
+<h2>Schedule an Interview for {{ job_application.user.username }}</h2>
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Schedule Interview</button>
+</form>
+
+{% endblock %}

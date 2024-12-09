@@ -5,7 +5,6 @@
 {% block content %}
 <h2>Applications for {{ job.position_title }} at {{ job.company.name }}</h2>
 
-<!-- Check if there are applications for the job -->
 {% if job_applications %}
     <table class="table">
         <thead>
@@ -13,6 +12,9 @@
                 <th>Applicant</th>
                 <th>Email</th>
                 <th>Resume</th>
+                <th>Application Status</th>
+                <th>Application Date</th>
+                <th>Action</th>
             </tr>
         </thead>
         <tbody>
@@ -25,6 +27,13 @@
                             <a href="{{ application.user.resume.url }}" target="_blank">Download Resume</a>
                         {% else %}
                             No resume uploaded
+                        {% endif %}
+                    </td>
+                    <td>{{ application.get_status_display }}</td>
+                    <td>{{ application.application_date }}</td>
+                    <td>
+                        {% if user == job.created_by and application.status == 'applied' %}
+                            <a href="{% url 'schedule_interview' application.id %}" class="btn btn-secondary">Schedule Interview</a>
                         {% endif %}
                     </td>
                 </tr>
