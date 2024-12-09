@@ -9,6 +9,12 @@
 
 <h2>Available Job Listings</h2>
 
+<!-- Search Form -->
+<form method="get" action="{% url 'homepage' %}">
+    <input type="text" name="search" placeholder="Search for jobs...">
+    <button type="submit">Search</button>
+</form>
+
 <!-- Display jobs in a table -->
 <table class="table table-striped">
     <thead>

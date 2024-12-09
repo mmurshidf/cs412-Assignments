@@ -17,9 +17,12 @@ class HomePageView(ListView):
     context_object_name = 'jobs'
 
     def get_queryset(self):
-        """Return all jobs created by users."""
+        search_query = self.request.GET.get('search', '')  # Get the search query from the request
+        if search_query:
+            # Filter jobs by position title that contains the search term
+            return Job.objects.filter(position_title__icontains=search_query)
         return Job.objects.all()
-
+    
 class JobDetailView(DetailView):
     """View to display details of a specific job application."""
     model = Job
