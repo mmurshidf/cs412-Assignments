@@ -26,7 +26,7 @@
             <td><a href="{% url 'job_detail' job.id %}">{{ job.position_title }}</a></td>
             <td>{{ job.company.name }}</td>
             <td>{{ job.location }}</td>
-            <td>{{ job.industry }}</td>
+            <td>{{ job.company.industry }}</td>
             <td>{{ job.posted_date }}</td>
         </tr>
         {% empty %}

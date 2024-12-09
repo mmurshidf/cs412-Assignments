@@ -1,5 +1,5 @@
 from django.shortcuts import get_object_or_404, redirect,render
-from django.views.generic import ListView, DetailView, CreateView, UpdateView, View
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, View, DeleteView
 from .models import JobApplication, Account, Job, Company
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -233,3 +233,14 @@ class OfferOrRejectApplicationView(LoginRequiredMixin, View):
         
         application.save()
         return redirect('job_applications_for_job', job_id=application.job.id)
+
+class DeleteJobView(LoginRequiredMixin, DeleteView):
+    model = Job
+    template_name = 'project/job_confirm_delete.html'  # A confirmation page before deletion
+    context_object_name = 'job'
+    success_url = reverse_lazy('user_profile')  # Redirect to the user's profile page after deletion
+
+    def get_object(self):
+        """Override to ensure that only the job created by the current user can be deleted."""
+        job = get_object_or_404(Job, pk=self.kwargs['pk'])
+        return job

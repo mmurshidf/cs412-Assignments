@@ -34,7 +34,6 @@ class Job(models.Model):
     position_title = models.CharField(max_length=100)
     description = models.TextField()
     location = models.CharField(max_length=100)
-    industry = models.CharField(max_length=100)
     posted_date = models.DateField(auto_now_add=True)
     created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name="created_jobs", default=1)
 

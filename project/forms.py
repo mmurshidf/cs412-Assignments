@@ -15,7 +15,7 @@ class UpdateProfileForm(forms.ModelForm):
 class JobCreationForm(forms.ModelForm):
     class Meta:
         model = Job
-        fields = ['company', 'position_title', 'description', 'location', 'industry']
+        fields = ['company', 'position_title', 'description', 'location']
 
     def __init__(self, *args, **kwargs):
         super(JobCreationForm, self).__init__(*args, **kwargs)
