@@ -33,7 +33,7 @@ class Job(models.Model):
     location = models.CharField(max_length=100)
     industry = models.CharField(max_length=100)
     posted_date = models.DateField(auto_now_add=True)
-    created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name="created_jobs", default=1)  # User who created the job
+    created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name="created_jobs", default=1)
 
     def __str__(self):
         return f"{self.position_title} at {self.company.name}"
@@ -53,7 +53,7 @@ class JobApplication(models.Model):
     ]
 
     user = models.ForeignKey(Account, on_delete=models.CASCADE)
-    job = models.ForeignKey(Job, on_delete=models.CASCADE, default=1)  # Link to the Job model
+    job = models.ForeignKey(Job, on_delete=models.CASCADE, default=1)
     application_date = models.DateField()
     status = models.CharField(max_length=20, choices=STATUS_CHOICES)
 

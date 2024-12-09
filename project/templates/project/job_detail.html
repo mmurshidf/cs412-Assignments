@@ -5,10 +5,22 @@
 {% endblock %}
 
 {% block content %}
-<h2>{{ job.position_title }}</h2>
+{% load static %}
+<link rel="stylesheet" href="{% static 'job_detail.css' %}">
+
 <p><strong>Company:</strong> {{ job.company.name }}</p>
 <p><strong>Industry:</strong> {{ job.company.industry }}</p>
-<p><strong>Location:</strong> {{ job.company.location }}</p>
-<p><strong>Date Applied:</strong> {{ job.application_date }}</p>
-<p><strong>Status:</strong> {{ job.get_status_display }}</p>
+<p><strong>Location:</strong> {{ job.location }}</p>
+<p><strong>Description:</strong> {{ job.description }}</p>
+<p><strong>Posted On:</strong> {{ job.posted_date }}</p>
+
+<!-- Apply Button -->
+{% if user.is_authenticated %}
+    <form method="post" action="{% url 'apply_to_job' job.pk %}">
+        {% csrf_token %}
+        <button type="submit" class="apply-btn">Apply Now</button>
+    </form>
+{% else %}
+    <a href="{% url 'login' %}" class="apply-btn">Login to Apply</a>
+{% endif %}
 {% endblock %}

@@ -18,16 +18,15 @@ class HomePageView(ListView):
         """Return all jobs available to apply to."""
         return Job.objects.all()  # Fetch all jobs available for users
 
-
 class JobDetailView(DetailView):
     """View to display details of a specific job application."""
-    model = JobApplication
+    model = Job
     template_name = 'project/job_detail.html'
     context_object_name = 'job'
 
     def get_queryset(self):
-        """Include company details for the job."""
-        return JobApplication.objects.select_related('company')
+        """Return the specific job based on its ID (pk)."""
+        return Job.objects.select_related('company')
 
 class CreateAccountView(CreateView):
     template_name = 'project/create_account.html'
@@ -41,26 +40,32 @@ class CreateAccountView(CreateView):
 
         return redirect(self.success_url)
 
-class UserProfileView(LoginRequiredMixin, ListView):
-    """Display profile with the job applications of the logged-in user."""
-    model = JobApplication
+class UserProfileView(LoginRequiredMixin, DetailView):
+    """View to display the profile page with jobs applied to and jobs created by the user."""
+    model = Account
     template_name = 'project/user_profile.html'
-    context_object_name = 'job_applications'
+    context_object_name = 'account'
 
-    def get_queryset(self):
-        """Return all job applications for the logged-in user."""
-        user_account = get_object_or_404(Account, user=self.request.user)
-        return JobApplication.objects.filter(user=user_account)
+    def get_object(self):
+        """Get the account object for the logged-in user."""
+        return get_object_or_404(Account, user=self.request.user)
 
-    def get_login_url(self):
-        return reverse_lazy('login')
+    def get_context_data(self, **kwargs):
+        """Add job applications and jobs created by the user to the context."""
+        context = super().get_context_data(**kwargs)
+        user_account = self.get_object()
+
+        context['applied_jobs'] = JobApplication.objects.filter(user=user_account)
+
+        context['created_jobs'] = Job.objects.filter(created_by=self.request.user)
+
+        return context
 
 class UpdateProfileForm(forms.ModelForm):
     """Form to update the user's email."""
     class Meta:
         model = Account
         fields = ['email']
-
 
 class UpdateProfileView(LoginRequiredMixin, UpdateView):
     model = Account

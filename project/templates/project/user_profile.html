@@ -1,42 +1,71 @@
 {% extends 'project/base.html' %}
+
 {% block title %}Your Profile{% endblock %}
 
 {% block content %}
-<h2>Your Profile</h2>
+<h2>Profile of {{ account.user.username }}</h2>
 
-<table class="table table-striped">
-    <thead>
-        <tr>
-            <th>Position</th>
-            <th>Company</th>
-            <th>Status</th>
-            <th>Interview Status</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for job in job_applications %}
-        <tr>
-            <td>{{ job.position_title }}</td>
-            <td>{{ job.company.name }}</td>
-            <td>{{ job.get_status_display }}</td>
-            <td>
-                {% if job.interview_set.exists %}
-                    {% for interview in job.interview_set.all %}
-                        {{ interview.interview_date }} - {{ interview.feedback|default:"No Feedback" }}
-                    {% endfor %}
-                {% else %}
-                    No interview scheduled
-                {% endif %}
-            </td>
-        </tr>
-        {% empty %}
-        <tr>
-            <td colspan="4">You have not applied to any jobs yet.</td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
+<p><strong>Email:</strong> {{ account.email }}</p>
 
-<a href="{% url 'update_profile' %}">Update Profile</a>
+<!-- Email Update Form -->
+<h3>Update Your Email</h3>
+<form method="post" action="{% url 'update_profile' %}">
+    {% csrf_token %}
+    <button type="submit">Update Email</button>
+</form>
+
+<h3>Jobs You Have Applied To:</h3>
+{% if applied_jobs %}
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Position</th>
+                <th>Company</th>
+                <th>Status</th>
+                <th>Application Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for application in applied_jobs %}
+                <tr>
+                    <td><a href="{{ application.job.get_job_details_url }}">{{ application.job.position_title }}</a></td>
+                    <td>{{ application.job.company.name }}</td>
+                    <td>{{ application.get_status_display }}</td>
+                    <td>{{ application.application_date }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+    <p>You have not applied to any jobs yet.</p>
+{% endif %}
+
+<h3>Jobs You Have Created:</h3>
+{% if created_jobs %}
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Position</th>
+                <th>Company</th>
+                <th>Location</th>
+                <th>Industry</th>
+                <th>Posted On</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for job in created_jobs %}
+                <tr>
+                    <td><a href="{{ job.get_job_details_url }}">{{ job.position_title }}</a></td>
+                    <td>{{ job.company.name }}</td>
+                    <td>{{ job.location }}</td>
+                    <td>{{ job.industry }}</td>
+                    <td>{{ job.posted_date }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+    <p>You have not created any jobs yet.</p>
+{% endif %}
 
 {% endblock %}

@@ -1,0 +1,38 @@
+/* Profile Page Styling */
+.profile-table {
+    width: 80%;
+    margin: 20px auto;
+    border-collapse: collapse;
+    background-color: #FDFBF3;
+    font-family: 'Roboto', sans-serif;
+    color: #4A90E2;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    border: 1px solid #BFD7EA;
+}
+
+.profile-table thead {
+    background-color: #BFD7EA;
+    color: white;
+}
+
+.profile-table th,
+.profile-table td {
+    padding: 15px;
+    text-align: left;
+    border: 1px solid #BFD7EA;
+}
+
+.profile-table tr:hover {
+    background-color: #BFD7EA;
+    color: white;
+}
+
+h3 {
+    margin-top: 30px;
+    color: #4A90E2;
+    font-size: 1.5rem;
+}
+
+p {
+    font-size: 1.2rem;
+}
